@@ -11,7 +11,58 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160425224530) do
+ActiveRecord::Schema.define(version: 20160427135859) do
+
+  create_table "friends", force: :cascade do |t|
+    t.integer  "friend_id",  limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "user_id",    limit: 4
+  end
+
+  add_index "friends", ["user_id"], name: "index_friends_on_user_id", using: :btree
+
+  create_table "group_members", force: :cascade do |t|
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "user_id",    limit: 4
+    t.integer  "group_id",   limit: 4
+  end
+
+  add_index "group_members", ["group_id"], name: "index_group_members_on_group_id", using: :btree
+  add_index "group_members", ["user_id"], name: "index_group_members_on_user_id", using: :btree
+
+  create_table "groups", force: :cascade do |t|
+    t.string   "group_name", limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "user_id",    limit: 4
+  end
+
+  add_index "groups", ["user_id"], name: "index_groups_on_user_id", using: :btree
+
+  create_table "invited_friends", force: :cascade do |t|
+    t.string   "status",     limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "user_id",    limit: 4
+    t.integer  "order_id",   limit: 4
+  end
+
+  add_index "invited_friends", ["order_id"], name: "index_invited_friends_on_order_id", using: :btree
+  add_index "invited_friends", ["user_id"], name: "index_invited_friends_on_user_id", using: :btree
+
+  create_table "orders", force: :cascade do |t|
+    t.string   "order",      limit: 255
+    t.string   "resturant",  limit: 255
+    t.string   "image",      limit: 255
+    t.string   "status",     limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "user_id",    limit: 4
+  end
+
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -31,4 +82,11 @@ ActiveRecord::Schema.define(version: 20160425224530) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "friends", "users"
+  add_foreign_key "group_members", "groups"
+  add_foreign_key "group_members", "users"
+  add_foreign_key "groups", "users"
+  add_foreign_key "invited_friends", "orders"
+  add_foreign_key "invited_friends", "users"
+  add_foreign_key "orders", "users"
 end

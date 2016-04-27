@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @invited_friend.status %>
+</p>
+
+<%= link_to 'Edit', edit_invited_friend_path(@invited_friend) %> |
+<%= link_to 'Back', invited_friends_path %>
