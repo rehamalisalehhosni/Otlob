@@ -1,5 +1,0 @@
-$ rvm gemset create otlob
-$ rvm gemset list
-$ rvm gemset use otlob
-$ gem install rails -V ===> create virtual env
-
