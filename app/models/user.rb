@@ -8,9 +8,23 @@
 
 
 class User < ActiveRecord::Base
-  TEMP_EMAIL_PREFIX = 'change@me'
+
+  has_many :friends;
+
+  has_many :groups;
+  has_many :group_members;
+  has_many :orders;
+  has_many :invited_friends;
+  has_many :order_details;
+
+      TEMP_EMAIL_PREFIX = 'change@me'
   TEMP_EMAIL_REGEX = /\Achange@me/
   mount_uploader :image, ImageUploader
+
+
+
+
+
 
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable
@@ -18,6 +32,9 @@ class User < ActiveRecord::Base
     :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
+
+  devise :omniauthable, :omniauth_providers => [:google_oauth2]
+
 
   def self.find_for_oauth(auth, signed_in_resource = nil)
 
@@ -71,4 +88,19 @@ class User < ActiveRecord::Base
     def image_size_validation
       errors[:image] << "should be less than 500KB" if image.size > 0.5.megabytes
     end
+
+  def google_oauth2
+    # You need to implement the method below in your model (e.g. app/models/user.rb)
+    @user = User.from_omniauth(request.env["omniauth.auth"])
+
+    if @user.persisted?
+      flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Google"
+      sign_in_and_redirect @user, :event => :authentication
+    else
+      session["devise.google_data"] = request.env["omniauth.auth"]
+      redirect_to new_user_registration_url
+    end
+  end
+
+
 end

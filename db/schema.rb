@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160428091636) do
+ActiveRecord::Schema.define(version: 20160428155334) do
 
   create_table "friends", force: :cascade do |t|
     t.integer  "friend_id",  limit: 4
@@ -62,6 +62,20 @@ ActiveRecord::Schema.define(version: 20160428091636) do
   add_index "invited_friends", ["order_id"], name: "index_invited_friends_on_order_id", using: :btree
   add_index "invited_friends", ["user_id"], name: "index_invited_friends_on_user_id", using: :btree
 
+  create_table "order_details", force: :cascade do |t|
+    t.string   "item",       limit: 255
+    t.integer  "amount",     limit: 4
+    t.float    "price",      limit: 24
+    t.string   "comment",    limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "user_id",    limit: 4
+    t.integer  "order_id",   limit: 4
+  end
+
+  add_index "order_details", ["order_id"], name: "index_order_details_on_order_id", using: :btree
+  add_index "order_details", ["user_id"], name: "index_order_details_on_user_id", using: :btree
+
   create_table "orders", force: :cascade do |t|
     t.string   "order",      limit: 255
     t.string   "resturant",  limit: 255
@@ -101,5 +115,7 @@ ActiveRecord::Schema.define(version: 20160428091636) do
   add_foreign_key "identities", "users"
   add_foreign_key "invited_friends", "orders"
   add_foreign_key "invited_friends", "users"
+  add_foreign_key "order_details", "orders"
+  add_foreign_key "order_details", "users"
   add_foreign_key "orders", "users"
 end

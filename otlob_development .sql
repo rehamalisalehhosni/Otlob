@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 28, 2016 at 05:45 PM
+-- Generation Time: Apr 28, 2016 at 08:05 PM
 -- Server version: 5.5.47-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.14
 
@@ -126,6 +126,27 @@ CREATE TABLE IF NOT EXISTS `orders` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `order_details`
+--
+
+CREATE TABLE IF NOT EXISTS `order_details` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `item` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `amount` int(11) DEFAULT NULL,
+  `price` float DEFAULT NULL,
+  `comment` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_order_details_on_user_id` (`user_id`),
+  KEY `index_order_details_on_order_id` (`order_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `schema_migrations`
 --
 
@@ -154,7 +175,10 @@ INSERT INTO `schema_migrations` (`version`) VALUES
 ('20160427135859'),
 ('20160428090622'),
 ('20160428090648'),
-('20160428091636');
+('20160428091636'),
+('20160428155105'),
+('20160428155233'),
+('20160428155334');
 
 -- --------------------------------------------------------
 
@@ -181,14 +205,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_users_on_email` (`email`),
   UNIQUE KEY `index_users_on_reset_password_token` (`reset_password_token`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `sign_in_count`, `current_sign_in_at`, `last_sign_in_at`, `current_sign_in_ip`, `last_sign_in_ip`, `created_at`, `updated_at`, `name`, `image`) VALUES
-(1, 'engtreham.ali2011@gmail.com', '$2a$11$I3YJt468iUrC1bwe/IFZb.HlzGLwp5fdGBRhnvqbaHiPchpYI0PZu', NULL, NULL, NULL, 1, '2016-04-28 14:44:07', '2016-04-28 14:44:07', '127.0.0.1', '127.0.0.1', '2016-04-28 14:44:07', '2016-04-28 14:44:07', NULL, 'WPKIAR_1__2_.JPG');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 --
 -- Constraints for dumped tables
@@ -231,6 +248,13 @@ ALTER TABLE `invited_friends`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `fk_rails_f868b47f6a` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `order_details`
+--
+ALTER TABLE `order_details`
+  ADD CONSTRAINT `fk_rails_e5976611fd` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
+  ADD CONSTRAINT `fk_rails_67f58df321` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
