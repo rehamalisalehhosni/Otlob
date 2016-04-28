@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  get 'users/index'
+  get 'pages/index'
 
+  get 'users/index'
+  root to: 'pages#index'
   resources :invited_friends
   resources :orders
   resources :group_members

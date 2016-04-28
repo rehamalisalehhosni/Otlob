@@ -10,10 +10,11 @@
 class User < ActiveRecord::Base
   TEMP_EMAIL_PREFIX = 'change@me'
   TEMP_EMAIL_REGEX = /\Achange@me/
+  mount_uploader :image, ImageUploader
 
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable
-  devise :database_authenticatable, :registerable, :confirmable,
+  devise :database_authenticatable, :registerable, 
     :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
@@ -63,4 +64,11 @@ class User < ActiveRecord::Base
   def email_verified?
     self.email && self.email !~ TEMP_EMAIL_REGEX
   end
+ validates_integrity_of  :image
+  validates_processing_of :image
+ 
+  private
+    def image_size_validation
+      errors[:image] << "should be less than 500KB" if image.size > 0.5.megabytes
+    end
 end

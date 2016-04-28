@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 28, 2016 at 02:44 PM
+-- Generation Time: Apr 28, 2016 at 05:45 PM
 -- Server version: 5.5.47-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.14
 
@@ -181,7 +181,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_users_on_email` (`email`),
   UNIQUE KEY `index_users_on_reset_password_token` (`reset_password_token`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `email`, `encrypted_password`, `reset_password_token`, `reset_password_sent_at`, `remember_created_at`, `sign_in_count`, `current_sign_in_at`, `last_sign_in_at`, `current_sign_in_ip`, `last_sign_in_ip`, `created_at`, `updated_at`, `name`, `image`) VALUES
+(1, 'engtreham.ali2011@gmail.com', '$2a$11$I3YJt468iUrC1bwe/IFZb.HlzGLwp5fdGBRhnvqbaHiPchpYI0PZu', NULL, NULL, NULL, 1, '2016-04-28 14:44:07', '2016-04-28 14:44:07', '127.0.0.1', '127.0.0.1', '2016-04-28 14:44:07', '2016-04-28 14:44:07', NULL, 'WPKIAR_1__2_.JPG');
 
 --
 -- Constraints for dumped tables
