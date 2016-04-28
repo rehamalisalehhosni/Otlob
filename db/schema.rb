@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160427135859) do
+ActiveRecord::Schema.define(version: 20160428091636) do
 
   create_table "friends", force: :cascade do |t|
     t.integer  "friend_id",  limit: 4
@@ -40,6 +40,16 @@ ActiveRecord::Schema.define(version: 20160427135859) do
   end
 
   add_index "groups", ["user_id"], name: "index_groups_on_user_id", using: :btree
+
+  create_table "identities", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.string   "provider",   limit: 255
+    t.string   "uid",        limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
 
   create_table "invited_friends", force: :cascade do |t|
     t.string   "status",     limit: 255
@@ -77,6 +87,8 @@ ActiveRecord::Schema.define(version: 20160427135859) do
     t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at",                                      null: false
     t.datetime "updated_at",                                      null: false
+    t.string   "name",                   limit: 255
+    t.string   "image",                  limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -86,6 +98,7 @@ ActiveRecord::Schema.define(version: 20160427135859) do
   add_foreign_key "group_members", "groups"
   add_foreign_key "group_members", "users"
   add_foreign_key "groups", "users"
+  add_foreign_key "identities", "users"
   add_foreign_key "invited_friends", "orders"
   add_foreign_key "invited_friends", "users"
   add_foreign_key "orders", "users"

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'users/index'
+
   resources :invited_friends
   resources :orders
   resources :group_members
@@ -9,7 +11,15 @@ Rails.application.routes.draw do
   resources :groupmembers
   resources :groups
   resources :friends
-  devise_for :users
+  #devise_for :users
+
+  devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
+
+  match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
+  #match '/auth/facebook/callback' => 'session#authorize_callback'
+  #match '/auth/facebook/setup' => 'session#setup'
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

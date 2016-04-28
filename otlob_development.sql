@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 27, 2016 at 05:31 PM
+-- Generation Time: Apr 28, 2016 at 02:44 PM
 -- Server version: 5.5.47-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4.14
 
@@ -72,6 +72,23 @@ CREATE TABLE IF NOT EXISTS `group_members` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `identities`
+--
+
+CREATE TABLE IF NOT EXISTS `identities` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `provider` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `uid` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_identities_on_user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `invited_friends`
 --
 
@@ -134,7 +151,10 @@ INSERT INTO `schema_migrations` (`version`) VALUES
 ('20160427135830'),
 ('20160427135839'),
 ('20160427135851'),
-('20160427135859');
+('20160427135859'),
+('20160428090622'),
+('20160428090648'),
+('20160428091636');
 
 -- --------------------------------------------------------
 
@@ -156,6 +176,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `last_sign_in_ip` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_users_on_email` (`email`),
   UNIQUE KEY `index_users_on_reset_password_token` (`reset_password_token`)
@@ -181,8 +203,14 @@ ALTER TABLE `groups`
 -- Constraints for table `group_members`
 --
 ALTER TABLE `group_members`
-  ADD CONSTRAINT `fk_rails_e9fdb70ec5` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`),
-  ADD CONSTRAINT `fk_rails_bb66f6bca8` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `fk_rails_bb66f6bca8` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `fk_rails_e9fdb70ec5` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`);
+
+--
+-- Constraints for table `identities`
+--
+ALTER TABLE `identities`
+  ADD CONSTRAINT `fk_rails_5373344100` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `invited_friends`
