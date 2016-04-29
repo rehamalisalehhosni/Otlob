@@ -26,15 +26,10 @@ class OrderDetailsController < ApplicationController
   def create
     @order_detail = OrderDetail.new(order_detail_params)
 
-    respond_to do |format|
-      if @order_detail.save
-        format.html { redirect_to @order_detail, notice: 'Order detail was successfully created.' }
-        format.json { render :show, status: :created, location: @order_detail }
-      else
-        format.html { render :new }
-        format.json { render json: @order_detail.errors, status: :unprocessable_entity }
-      end
-    end
+
+    @order = Order.find(params[:order_id])
+    @order_detail = @order.order_details.create(order_detail_params)
+    redirect_to order_path(@order_detail)
   end
 
   # PATCH/PUT /order_details/1
@@ -54,11 +49,14 @@ class OrderDetailsController < ApplicationController
   # DELETE /order_details/1
   # DELETE /order_details/1.json
   def destroy
+
+    @order = Order.find(params[:order_id])
+    @order_details = @order.order_details.find(params[:id])
     @order_detail.destroy
-    respond_to do |format|
-      format.html { redirect_to order_details_url, notice: 'Order detail was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to orders_path(@order)
+    
+      
+  
   end
 
   private
@@ -69,6 +67,6 @@ class OrderDetailsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_detail_params
-      params.require(:order_detail).permit(:item, :amount, :price, :comment)
+      params.require(:order_detail).permit(:item, :amount, :price, :comment , :user_id )
     end
 end

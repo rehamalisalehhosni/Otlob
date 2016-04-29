@@ -36,46 +36,17 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>1</td>
-					<td>Reham</td>
-					<td>Mkrona</td>
-					<td>1</td>
-					<td>25</td>
-					<td></td>
-					<td><a href="#" class="">[X]</a></td>	
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>Asmaa</td>
-					<td>Wagba </td>
-					<td>1</td>
-					<td>25</td>
-					<td>Btates kteer</td>
-					<td><a href="#" class="">[X]</a></td>	
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>Ali</td>
-					<td>Wagba Kombo</td>
-					<td>3</td>
-					<td>25</td>
-					<td></td>
-					<td><a href="#" class="">[X]</a></td>	
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>Mina</td>
-					<td>Koshary</td>
-					<td>3</td>
-					<td>25</td>
-					<td>basl kteer</td>
-					<td><a href="#" class="">[X]</a></td>	
-				</tr>
+				<%= render @order.order_details %>		
 			</tbody>
-
 		</table>
+		
 	</div>
+
+
+
+	
+
+
 
 	<div class="col-sm-4">
 		<!-- Button trigger modal -->
@@ -167,28 +138,42 @@
 </div>
 
 <hr>
+<%= 
+=begin
 
+render 'order_details/form'
+=end
+
+ %>
 <div class="row">
-		<form class="form-inline">
+		<!--<form class="form-inline" action="/order_details" method="POST">
 		  <div class="form-group">
 		    <label for="exampleInputName2">Item</label>
-		    <input type="text" class="form-control" id="exampleInputName2" required placeholder="Enter Item">
+		    <input type="text" name="item" class="form-control" id="exampleInputName2" required placeholder="Enter Item">
 		  </div>
 		  <div class="form-group">
 		    <label for="exampleInputEmail2">Amount</label>
-		    <input type="number" class="form-control" required id="exampleInputEmail2">
+		    <input type="number" name="amount" class="form-control" required id="exampleInputEmail2">
 		  </div>
 		  <div class="form-group">
 		    <label for="exampleInputEmail2">Price</label>
-		    <input type="number" class="form-control" required id="exampleInputEmail2">
+		    <input type="number" name="price" class="form-control" required id="exampleInputEmail2">
 		  </div>
 		  <div class="form-group">
 		    <label for="exampleInputEmail2">Comment</label>
-		    <input type="text" class="form-control" required id="exampleInputEmail2">
+		    <input type="text" name="comment" class="form-control" required id="exampleInputEmail2">
 		  </div>
+		  <div class="form-group">
+		    <input type="hidden" name="user_id" value="<%= current_user.id %>" class="form-control" required id="exampleInputEmail2">
+		  </div>
+		  <div class="form-group">
+		    <input type="hidden" name="order_id" value="<%= @order.id %>" class="form-control" required id="exampleInputEmail2">
+		  </div>
+
+
 		  <button type="submit" class="btn btn-default">Add</button>
 		</form>
-
+-->
 </div>
 
 
