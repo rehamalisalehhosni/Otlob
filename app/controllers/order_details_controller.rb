@@ -25,9 +25,9 @@ class OrderDetailsController < ApplicationController
   # POST /order_details.json
   def create
     @order_detail = OrderDetail.new(order_detail_params)
-    @order = Order.find(params[:order_id])
+    @order = Order.find(@order_detail[:order_id])
     @order_detail = @order.order_details.create(order_detail_params)
-    redirect_to order_path(@order_detail)
+    redirect_to order_path(@order_detail[:order_id])
   end
 
   # PATCH/PUT /order_details/1
