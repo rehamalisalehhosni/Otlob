@@ -1,38 +1,31 @@
-<%= form_for([@order, @order.order_details.build]) do |f| %>
+<%= form_for (OrderDetail.new) , :html => {:class => "form-inline"} do |f| %>
 
 
-  <% if @order_detail.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@order_detail.errors.count, "error") %> prohibited this order_detail from being saved:</h2>
-
-      <ul>
-      <% @order_detail.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  
 
   <div class="form-group">
     <%= f.label :item %><br>
-    <%= f.text_field :item %>
+    <%= f.text_field :item  , :class => 'form-control' , :placeholder => "Enter Item" %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :amount %><br>
-    <%= f.number_field :amount %>
+    <%= f.number_field :amount , :class => 'form-control' , :placeholder => "Amount"  %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :price %><br>
-    <%= f.text_field :price %>
+    <%= f.text_field :price , :class => 'form-control' , :placeholder => "Price"  %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.label :comment %><br>
-    <%= f.text_field :comment %>
+    <%= f.text_field :comment , :class => 'form-control' , :placeholder => "Enter Any Comment"  %>
   </div>
   <p>
         <%= f.hidden_field :user_id, value: current_user.id %>
   </p>
-  <div class="actions">
-    <%= f.submit %>
+  <p>
+        <%= f.hidden_field :order_id , value: @order.id %>
+  </p>
+  <div class="form-group">
+    <%= f.submit  :class => 'btn btn-info pull-right' %>
   </div>
 <% end %>

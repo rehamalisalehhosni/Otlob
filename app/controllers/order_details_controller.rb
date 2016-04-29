@@ -25,8 +25,6 @@ class OrderDetailsController < ApplicationController
   # POST /order_details.json
   def create
     @order_detail = OrderDetail.new(order_detail_params)
-
-
     @order = Order.find(params[:order_id])
     @order_detail = @order.order_details.create(order_detail_params)
     redirect_to order_path(@order_detail)
@@ -68,6 +66,6 @@ class OrderDetailsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_detail_params
-      params.require(:order_detail).permit(:item, :amount, :price, :comment , :user_id )
+      params.require(:order_detail).permit(:item, :amount, :price, :comment , :user_id , :order_id)
     end
 end
