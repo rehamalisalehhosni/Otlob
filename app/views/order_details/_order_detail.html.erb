@@ -6,7 +6,7 @@
 	<td><%= order_detail.amount %></td>
 	<td><%= order_detail.price %></td>
 	<td><%= order_detail.comment %></td>
-	<td><%= link_to '[X]' ,  [order_detail.order, order_detail],
+	<td><a href=""></a><%= link_to '[X]' ,  [order_detail],
 					 method: :delete,
 					 data: { confirm: 'Are you sure?' } %></td>	
 </tr>

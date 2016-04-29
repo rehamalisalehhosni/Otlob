@@ -50,10 +50,11 @@ class OrderDetailsController < ApplicationController
   # DELETE /order_details/1.json
   def destroy
 
-    @order = Order.find(params[:order_id])
-    @order_details = @order.order_details.find(params[:id])
+    #@order = Order.all
+    @order_detail = OrderDetail.find(params[:id])
+    @myid=@order_detail.order_id
     @order_detail.destroy
-    redirect_to orders_path(@order)
+    redirect_to order_path(@myid)
     
       
   
