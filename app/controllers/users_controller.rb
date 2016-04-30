@@ -1,10 +1,14 @@
-
-
-
 class UsersController ::OmniauthCallbacksController < Devise::OmniauthCallbacksController< ApplicationController
   before_action :set_user, only: [:index,:show, :edit, :update, :destroy]
 
   def index
+
+    if current_user
+      @uid = current_user.id
+    else
+      redirect_to new_user_session_path, notice: 'You are not logged in.'
+    end
+
   end
 
   # GET /users/:id.:format
@@ -69,6 +73,7 @@ class UsersController ::OmniauthCallbacksController < Devise::OmniauthCallbacksC
   private
     def set_user
       @user = User.find(params[:id])
+
     end
 
     def user_params
