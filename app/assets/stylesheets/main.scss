@@ -45,4 +45,26 @@ body .navbar-default .navbar-nav>.active>a,body .navbar-default .navbar-nav>.act
  width:30px;
  height:30px;
  position: absolute;
- }
+ }.border{
+ border:solid 1px #97B8BB;
+ }.image_group{
+ width:30px;
+ height:30px;
+ }body ul li{
+ list-style:none;
+ background: rgba(151, 184, 187, 0.57);
+ padding: 2px;
+ border-radius: 5px;
+ }body ul li span.groupd{
+ padding-top:5px;
+ position :relative;
+ top:4px;
+ font:bold 13px #555 ;
+ }.icons{
+ padding:0 5px 0 5px;
+ }.gr{
+ font-size:16px;
+ }.gr li{
+ padding:5px;
+ margin:5px;
+  }

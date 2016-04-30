@@ -2,4 +2,23 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Back', groups_path %>
+<% #link_to 'Back', groups_path %>
+<p class="clearfix"></p>
+<div class="col-md-5 pull-left border">
+	<h3>My Groups</h3> 
+	<ul class="gr">
+	    <% @groupsData.each do |data| %>
+         <li>
+            <span class:'groupd pull-left col-sm-6'>
+              <%= data.group_name %></span>
+              <span class="pull-right icons"><%= icon('user-plus', class: 'strong')%></span>
+              <span class="pull-right  icons"><%= icon('trash', class: 'strong')%></sapan>
+            <p class="clearfix"></p>
+         </li>
+	    <% end %>
+	
+	</ul>
+</div>
+<div class="col-md-5 pull-right border">
+	
+</div>
