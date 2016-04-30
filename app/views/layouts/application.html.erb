@@ -29,7 +29,9 @@
                           <%= link_to('Home', pages_index_path)  %>
                        <% if user_signed_in? %>
                           <li><a href="#">Friend</a></li>
-                          <li><a href="#">Groups</a></li>
+                          <li>
+                          <%= link_to('Groups', new_group_member_path)  %>
+                          </li>
                           <li><a href="#">Orders</a></li>
                          <% else %> 
                           <li>  <%= link_to('Login', new_user_session_path)  %> </li>
