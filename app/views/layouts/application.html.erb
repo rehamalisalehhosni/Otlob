@@ -25,19 +25,29 @@
                       <a class="navbar-brand" href="#">WebSiteName</a>
                     </div>
                     <ul class="nav navbar-nav">
+                          <li>
+                          <%= link_to('Home', pages_index_path)  %>
                        <% if user_signed_in? %>
-                          <li class="active"><a href="#">Home</a></li>
-                         <li><a href="#" class="imgusr">
-                          <%= image_tag(current_user.image.url) %>
-                          <%= current_user.name %>
-                          </a></li>
-                          <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %>  </li>
+                          <li><a href="#">Friend</a></li>
+                          <li><a href="#">Groups</a></li>
+                          <li><a href="#">Orders</a></li>
                          <% else %> 
-                          <li class="active"><a href="#">Home</a></li>
                           <li>  <%= link_to('Login', new_user_session_path)  %> </li>
                           <li>  <%= link_to('Register', new_user_registration_path)  %></li> 
                       <% end %>
+                      
                     </ul>
+                       <% if user_signed_in? %>
+                        <ul class="nav navbar-nav pull-right">
+                          <li class="imgusr">
+                          <%= link_to(image_tag(current_user.image.url) , edit_user_registration_path)  %>
+                          </li>
+                           <li>
+                            <%= link_to(current_user.name , edit_user_registration_path)  %></li>
+                          <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %>  </li>
+                          </ul>
+                      <% end %>
+
                   </div>
                 </nav>
 				 <div class="content ">				 	
