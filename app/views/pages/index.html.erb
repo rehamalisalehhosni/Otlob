@@ -33,14 +33,13 @@
       <thead>
       </thead>
         <tbody>
-
+       
         <% @friend.each do |friend| %>
-
-          <tr class="success" >
-          <td class="danger"><%= friend.friend_id %></td>
-            <td class="danger"><%= friend.user.name%></td>
-
-          </tr>
+        <% myFriend = User.where('id=?',friend.friend_id) %>
+        <% myFriend.each do |my| %>
+          <%= my.name%>
+          
+         <% end %>
       <% end %>
       </tbody>
     </table>

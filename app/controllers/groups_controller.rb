@@ -16,8 +16,15 @@ class GroupsController < ApplicationController
     #usersGroup = group_members.where(user_id: current_user.id, group_id=id).order(id: :desc)
  end
  def  group_member
-    id= [params[:id]]
-
+      @id= [params[:id]]
+      @group=Group.find(@id)  
+      respond_to do |format|
+           format.html
+           format.js {} 
+           format.json { 
+              render json: {:groups => @group}
+           } 
+        end
   end
 
   # GET /groups/new

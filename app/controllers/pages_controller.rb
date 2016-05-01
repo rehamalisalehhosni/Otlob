@@ -1,24 +1,11 @@
 class PagesController < ApplicationController
   def index
-
-
-
     @us = current_user.id
     @order = Order.where('user_id=?',@us).last(5)
-
     # @friend = Friend.where('user_id=?',@us)
 
     # @friend = Friend.joins(users: :orders).where('user_id=?',@us)
-
-    @user = User.new
-
-
-
     @friend= Friend.where('user_id=?',@us)
-
-
-
-
       # @friend =Friend.find(
     #                    :all,
     #                    :joins=>[:order, :user, :friend],
@@ -34,10 +21,7 @@ class PagesController < ApplicationController
     # AND users.id = friends.friend_id
     # AND orders.user_id = friends.friend_id
     # LIMIT 0 , 30
-
-
     # @friend = Friend.select("users.name, orders.order as g_id, users.id as u_id,
     # users.name, users.email").joins(:users).where(:users => {:u_id => @us})
-
   end
 end
