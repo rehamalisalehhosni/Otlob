@@ -10,16 +10,29 @@ class PagesController < ApplicationController
 
     # @friend = Friend.joins(users: :orders).where('user_id=?',@us)
 
-    @user = User.new
+    # @user = User.new
 
 
 
-    @friend= Friend.where('user_id=?',@us)
+    #@friend= Friend.where('user_id=?',@us)
+
+    @friend=User.find_by_sql (["select name from users, friends where user_id = ? and users.id = friends.friend_id", @us])
+    # @user = User.find_by_sql ["SELECT name FROM users WHERE id = ? ", friend_id]
 
 
 
 
-      # @friend =Friend.find(
+    def getNameById
+
+              # @user = User.find_by_sql ["SELECT name FROM users WHERE id = ? ", friend_id]
+
+    end
+
+
+
+
+
+    # @friend =Friend.find(
     #                    :all,
     #                    :joins=>[:order, :user, :friend],
     #                    :select=>",user.id, user.name",

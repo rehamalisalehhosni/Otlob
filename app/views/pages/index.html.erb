@@ -34,11 +34,14 @@
       </thead>
         <tbody>
 
+
         <% @friend.each do |friend| %>
 
           <tr class="success" >
-          <td class="danger"><%= friend.friend_id %></td>
-            <td class="danger"><%= friend.user.name%></td>
+          <td><%= friend.name %></td>
+
+
+
 
           </tr>
       <% end %>
