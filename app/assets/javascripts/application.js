@@ -34,9 +34,9 @@ function myFunc(){
 			{
 				// ha3ml loop 3la al dat Hna
 				
-				console.log( data.invitedFriend[0].user.id);
+				//console.log( data.invitedFriend[0].user.id);
 				for(var i = 0; i < data.invitedFriend.length; ++i) {
-				    //console.log(data.invitedFriend[i].user_id)
+				    console.log(data.invitedFriend[i].created_at)
 					//$("#viewMyTable").append(data.invitedFriend[i].user.name + "<BR>" );
 				}
 
