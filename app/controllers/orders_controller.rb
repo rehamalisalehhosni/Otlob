@@ -63,6 +63,24 @@ class OrdersController < ApplicationController
     end
   end
 
+  def friendapproved
+
+
+
+      # hab3at  input type hidden  3ashan ya5od mnoh al kema bta3t al Order ID
+      # w ha5odha fe al ajax   w ab3atha  l hna 
+
+      #@order = Order.find(params[:id])
+      @invitedFriend = InvitedFriend.where("status = 1 AND order_id = 3 " )
+      respond_to do |format|
+           format.html
+           format.js {} 
+           format.json { 
+              render json: {:invitedFriend => @invitedFriend}
+           } 
+      end
+  end  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order
