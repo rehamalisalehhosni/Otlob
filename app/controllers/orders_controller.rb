@@ -64,8 +64,14 @@ class OrdersController < ApplicationController
   end
 
   def friendapproved
-      
-      @invitedFriend = InvitedFriend.all
+
+
+
+      # hab3at  input type hidden  3ashan ya5od mnoh al kema bta3t al Order ID
+      # w ha5odha fe al ajax   w ab3atha  l hna 
+
+      #@order = Order.find(params[:id])
+      @invitedFriend = InvitedFriend.where("status = 1 AND order_id = 3 " )
       respond_to do |format|
            format.html
            format.js {} 
