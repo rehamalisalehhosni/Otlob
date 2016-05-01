@@ -15,10 +15,14 @@ Rails.application.routes.draw do
   resources :groups
   resources :friends
   #devise_for :users
+  get 'groups/group_member/:id', to: 'groups#group_member'
 
   devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
 
   match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
+ 
+ get 'friendapproved'=>'orders#friendapproved'
+
   # devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   #match '/auth/facebook/callback' => 'session#authorize_callback'

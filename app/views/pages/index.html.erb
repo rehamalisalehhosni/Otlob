@@ -33,6 +33,7 @@
       <thead>
       </thead>
         <tbody>
+<<<<<<< HEAD
 
 
         <% @friend.each do |friend| %>
@@ -44,6 +45,15 @@
 
 
           </tr>
+=======
+       
+        <% @friend.each do |friend| %>
+        <% myFriend = User.where('id=?',friend.friend_id) %>
+        <% myFriend.each do |my| %>
+          <%= my.name%>
+          
+         <% end %>
+>>>>>>> 7cbfdcb6cf1b1cd3d594c14b205c622d1241f2ca
       <% end %>
       </tbody>
     </table>
