@@ -11,8 +11,14 @@
          <li>
             <span class:'groupd pull-left col-sm-6'>
               <%= data.group_name %></span>
-              <span class="pull-right icons"><%= icon('user-plus', class: 'strong')%></span>
-              <span class="pull-right  icons"><%= icon('trash', class: 'strong')%></sapan>
+              <span class="pull-right icons">
+              <a href='javascript:void(0)' onclick="displayGroup(<%= data.id %>)">
+              	<%= icon('user-plus', class: 'strong')%>
+              	</a>
+              </span>
+               <span class="pull-right  icons"></a>
+              	<a href=''><%= icon('trash', class: 'strong')%></a>
+              </span>
             <p class="clearfix"></p>
          </li>
 	    <% end %>
@@ -20,5 +26,29 @@
 	</ul>
 </div>
 <div class="col-md-5 pull-right border">
-	
+  <div id="results"></div>	
 </div>
+<script type="text/javascript">
+  function displayGroup(id){
+  	  $.ajax({
+	    type: "GET",
+	    url: 'group_member/' + id,
+	    dataType: "JSON",
+	    success: function(data) {
+	      console.log(data)
+	    }
+  });
+
+	/*$.ajax({
+	       url:"/get_group/id/"+id,
+	       method:'get',
+	      success:function(response){
+	      	console.log(response);
+	      },
+	      complete:function(){
+	      }, cache: false,
+	      async:true
+	  });*/
+	}
+
+</script>
