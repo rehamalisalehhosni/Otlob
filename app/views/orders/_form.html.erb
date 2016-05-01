@@ -20,22 +20,24 @@
     <%= f.text_field :resturant %>
   </div>
 
-  <div class="field">
-    <%= f.label :friends %><br>
-    <%= f.text_field :friends %>
-  </div>
-
    <p>
         <%= f.hidden_field :user_id, value: current_user.id %>
   </p>
+
+   
   <div class="field">
-    <%= f.label :image %><br>
-    <%= f.text_field :image %>
+
+    <%= f.hidden_field  :status , value: "waiting" %>
   </div>
-  <div class="field">
-    <%= f.label :status %><br>
-    <%= f.text_field :status %>
+
+  <div class="field form-group">
+    <%= f.label :image do %>
+      <%= f.file_field :image ,class: 'form-control' %>
+      <%= f.hidden_field :image %>
+    <% end %>
   </div>
+
+
   <div class="actions">
     <%= f.submit %>
   </div>
