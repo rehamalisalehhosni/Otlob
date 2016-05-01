@@ -18,3 +18,30 @@
 //= require jquery-ui
 //= require autocomplete-rails
 //= require_tree .
+
+function myFunc(){
+
+
+	/*$.ajax(url: "/articles" , type:'POST').done (html) ->
+	$("#viewMyTable").append html*/
+	$.ajax(
+		{
+			type : 'GET',
+			url : "/friendapproved" ,
+			dataType: "json",
+	        
+			success : function( data )
+			{
+				// ha3ml loop 3la al dat Hna
+				
+				console.log( data.invitedFriend[0].user.id);
+				for(var i = 0; i < data.invitedFriend.length; ++i) {
+				    //console.log(data.invitedFriend[i].user_id)
+					//$("#viewMyTable").append(data.invitedFriend[i].user.name + "<BR>" );
+				}
+
+				//$("#viewMyTable").html(data.articles[0].title );
+				//console.log( data );		
+			}
+		});		
+}
