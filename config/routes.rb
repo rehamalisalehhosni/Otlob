@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :groups
   resources :friends
   #devise_for :users
+  get 'groups/group_member/:id', to: 'groups#group_member'
 
   devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
 
