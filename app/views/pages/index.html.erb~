@@ -8,7 +8,7 @@
     <!--latest orders-->
 
     <div class="col-sm-6">
-      <h3>Latest Orders</h3>
+      <h1>Latest Orders</h1>
       <table class="table" >
         <thead>
         </thead>
@@ -28,23 +28,24 @@
     <!--friends activity-->
 
     <div class="col-sm-6">
-    <h3>Friends Activities</h3>
+    <h1>Latest Orders</h1>
       <table class="table" >
       <thead>
       </thead>
         <tbody>
 
 
-         <% @friend_orders.each do |friend_orders| %>
-            <tr class="" >
-              <td class="danger">
-                <h4><%= friend_orders.name %></h4> <%= "has created an order for"%> <%= friend_orders.order %> <%= "from" %> <%= friend_orders.resturant %>
+        <% @friend.each do |friend| %>
+
+          <tr class="success" >
+<td><%= friend.name %></td>
 
 
-              </td>
-            </tr>
-        <% end %>
-            </tbody>
+
+
+          </tr>
+      <% end %>
+      </tbody>
     </table>
 </div>
 
@@ -54,4 +55,4 @@
     <br>
   </div>
 </div>
-	
+
