@@ -1,4 +1,4 @@
-<%= form_for(@invited_friend) do |f| %>
+<%= form_for(@invited_friend ) do |f| %>
   <% if @invited_friend.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@invited_friend.errors.count, "error") %> prohibited this invited_friend from being saved:</h2>
@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :status %><br>
-    <%= f.text_field :status %>
+  <%= f.hidden_field  :status , value: "waiting" %>
   </div>
   <div class="actions">
     <%= f.submit %>

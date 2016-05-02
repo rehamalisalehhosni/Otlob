@@ -10,11 +10,13 @@ class InvitedFriendsController < ApplicationController
   # GET /invited_friends/1
   # GET /invited_friends/1.json
   def show
+      @order = Order.new
   end
 
   # GET /invited_friends/new
   def new
     @invited_friend = InvitedFriend.new
+@order=Order.new
   end
 
   # GET /invited_friends/1/edit
