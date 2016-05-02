@@ -16,13 +16,18 @@ Rails.application.routes.draw do
   resources :friends
   #devise_for :users
   get 'groups/group_member/:id', to: 'groups#group_member'
-
+  get 'users/invite' ,to:"users#invite"
   devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
 
   match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
- 
- get 'friendapproved'=>'orders#friendapproved'
 
+ get 'friendapproved'=>'orders#friendapproved'
+resources :orders do
+resources :invited_friends
+end
+resources :users do
+  get :autocomplete_user_name, :on => :collection
+end
   # devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   #match '/auth/facebook/callback' => 'session#authorize_callback'

@@ -17,6 +17,9 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
     @order = Order.new
+    @invited_friend = InvitedFriend.new
+
+    #@invited_friend=Invited_friends.new
   end
 
   # GET /orders/1/edit
@@ -68,18 +71,18 @@ class OrdersController < ApplicationController
 
 
       # hab3at  input type hidden  3ashan ya5od mnoh al kema bta3t al Order ID
-      # w ha5odha fe al ajax   w ab3atha  l hna 
+      # w ha5odha fe al ajax   w ab3atha  l hna
 
       #@order = Order.find(params[:id])
       @invitedFriend = InvitedFriend.where("status = 1 AND order_id = 3 " )
       respond_to do |format|
            format.html
-           format.js {} 
-           format.json { 
+           format.js {}
+           format.json {
               render json: {:invitedFriend => @invitedFriend}
-           } 
+           }
       end
-  end  
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
