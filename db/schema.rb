@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160428155334) do
+ActiveRecord::Schema.define(version: 20160502144951) do
 
   create_table "friends", force: :cascade do |t|
     t.integer  "friend_id",  limit: 4
@@ -21,16 +21,6 @@ ActiveRecord::Schema.define(version: 20160428155334) do
   end
 
   add_index "friends", ["user_id"], name: "index_friends_on_user_id", using: :btree
-
-  create_table "group_members", force: :cascade do |t|
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-    t.integer  "user_id",    limit: 4
-    t.integer  "group_id",   limit: 4
-  end
-
-  add_index "group_members", ["group_id"], name: "index_group_members_on_group_id", using: :btree
-  add_index "group_members", ["user_id"], name: "index_group_members_on_user_id", using: :btree
 
   create_table "groups", force: :cascade do |t|
     t.string   "group_name", limit: 255
@@ -61,6 +51,16 @@ ActiveRecord::Schema.define(version: 20160428155334) do
 
   add_index "invited_friends", ["order_id"], name: "index_invited_friends_on_order_id", using: :btree
   add_index "invited_friends", ["user_id"], name: "index_invited_friends_on_user_id", using: :btree
+
+  create_table "members", force: :cascade do |t|
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "user_id",    limit: 4
+    t.integer  "group_id",   limit: 4
+  end
+
+  add_index "members", ["group_id"], name: "index_members_on_group_id", using: :btree
+  add_index "members", ["user_id"], name: "index_members_on_user_id", using: :btree
 
   create_table "order_details", force: :cascade do |t|
     t.string   "item",       limit: 255
@@ -109,12 +109,12 @@ ActiveRecord::Schema.define(version: 20160428155334) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "friends", "users"
-  add_foreign_key "group_members", "groups"
-  add_foreign_key "group_members", "users"
   add_foreign_key "groups", "users"
   add_foreign_key "identities", "users"
   add_foreign_key "invited_friends", "orders"
   add_foreign_key "invited_friends", "users"
+  add_foreign_key "members", "groups"
+  add_foreign_key "members", "users"
   add_foreign_key "order_details", "orders"
   add_foreign_key "order_details", "users"
   add_foreign_key "orders", "users"

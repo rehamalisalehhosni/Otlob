@@ -1,6 +1,7 @@
 class UsersController ::OmniauthCallbacksController < Devise::OmniauthCallbacksController< ApplicationController
   before_action :set_user, only: [:index,:show, :edit, :update, :destroy]
 
+  autocomplete :id, :name, :full => true
   def index
 
     if current_user

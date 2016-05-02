@@ -1,5 +1,6 @@
 class InvitedFriendsController < ApplicationController
   before_action :set_invited_friend, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /invited_friends
   # GET /invited_friends.json

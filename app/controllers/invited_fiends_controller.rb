@@ -1,5 +1,6 @@
 class InvitedFiendsController < ApplicationController
   before_action :set_invited_fiend, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /invited_fiends
   # GET /invited_fiends.json
