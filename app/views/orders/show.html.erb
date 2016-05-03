@@ -27,6 +27,7 @@
 <div class="row">
 	<!-- Show Order Details  -->
 	<div class="col-sm-8">
+	<%= @order.status %>
 		<table class="table  table-hover">
 			<thead>
 				<tr>
@@ -89,7 +90,11 @@
 </div>
 
 <hr>
-<%= render 'order_details/form'  %>
+<%=	
+	if  @order.status == '1' 
+	 	render 'order_details/form'  
+	end 	
+%>
 <div class="row">
 		<!--<form class="form-inline" action="/order_details" method="POST">
 		  <div class="form-group">
