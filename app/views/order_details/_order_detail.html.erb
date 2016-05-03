@@ -6,7 +6,13 @@
 	<td><%= order_detail.amount %></td>
 	<td><%= order_detail.price %></td>
 	<td><%= order_detail.comment %></td>
-	<td><a href=""></a><%= link_to '[X]' ,  [order_detail],
+	<td>
+	<%= 
+		if  current_user.id == order_detail.user_id  
+
+			 link_to '[X]' ,  [order_detail],
 					 method: :delete,
-					 data: { confirm: 'Are you sure?' } %></td>	
+					 data: { confirm: 'Are you sure?' } 
+
+		end				 %></td>	
 </tr>
