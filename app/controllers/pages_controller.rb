@@ -1,4 +1,6 @@
+
 class PagesController < ApplicationController
+  before_action :authenticate_user!
   def index
 
 
@@ -8,11 +10,19 @@ class PagesController < ApplicationController
 
     @friend=User.find_by_sql (["select name,email,image from users, friends where user_id = ? and users.id = friends.friend_id", @us])
 
+<<<<<<< HEAD
     @friend_orders=Order.find_by_sql(["SELECT name, orders.order
 FROM orders, friends, users
 WHERE friends.user_id =?
 AND users.id = friends.friend_id
 AND orders.user_id = friends.friend_id" , @us]).last(5)
+=======
+    @friend_orders=Order.find_by_sql(["SELECT name, orders.order,resturant
+FROM orders, friends, users
+WHERE friends.user_id =?
+AND users.id = friends.friend_id
+AND orders.user_id = friends.friend_id" , @us]).last(1)
+>>>>>>> 453ead0e81910bf3f0cc8f6ee99d2ca38d3a0354
     # SELECT *
     #     FROM orders, friends, users
     # WHERE friends.user_id =1
@@ -30,6 +40,10 @@ AND orders.user_id = friends.friend_id" , @us]).last(5)
     end
 
 
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 453ead0e81910bf3f0cc8f6ee99d2ca38d3a0354
   end
 end

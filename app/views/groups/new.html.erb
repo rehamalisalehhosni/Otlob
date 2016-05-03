@@ -22,25 +22,32 @@
             <p class="clearfix"></p>
          </li>
 	    <% end %>
-	
 	</ul>
 </div>
 <div class="col-md-5 pull-right border">
   <div id="results">
   	<h2></h2>
+    <%= render 'members/form' %>
+
+
+  <ul id="users"></ul>
   </div>	
 </div>
 <script type="text/javascript">
   function displayGroup(id){
+  	$('#users').html("");
   	  $.ajax({
 	    type: "GET",
 	    url: 'group_member/' + id,
 	    dataType: "JSON",
 	    success: function(data) {
 	      	$("#results h2").html(data.groups[0].group_name);
+	      	$("#member_group_id").attr('value',data.groups[0].id);
+	      for (var x=0;x< data.usrGroups.length;x++){
+	      	$('#users').append("<li><img src='"+data.usrGroups[x].image.url+"' class='img'/>"+data.usrGroups[x].name+"</li>");
+	      } 	
 	     }
   });
 
 }
-
 </script>

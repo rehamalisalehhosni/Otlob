@@ -1,18 +1,18 @@
 Rails.application.routes.draw do
+  #resources :members
+  #resources :groups
   resources :order_details
   get 'pages/index'
-
   get 'users/index'
   root to: 'pages#index'
   resources :invited_friends
   resources :orders
-  resources :group_members
-  resources :groups
   resources :friends
   resources :invited_fiends
   resources :orders
-  resources :groupmembers
-  resources :groups
+  resources :groups do 
+   resources :members
+  end
   resources :friends
   #devise_for :users
   get 'groups/group_member/:id', to: 'groups#group_member'

@@ -1,0 +1,58 @@
+<div id="main-container" class="container-fluid"  >
+
+  <div class="container">
+
+
+  <p id="notice"><%= notice %></p>
+
+    <!--latest orders-->
+
+    <div class="col-sm-6">
+      <h1>Latest Orders</h1>
+      <table class="table" >
+        <thead>
+        </thead>
+        <tbody>
+
+        <% @order.each do |order| %>
+
+            <tr class="info|" >
+              <td class="danger"><h4><%= order.order %></h4> <%= "Ordered at"%> <%= order.updated_at %></td>
+
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <!--friends activity-->
+
+    <div class="col-sm-6">
+    <h1>Latest Orders</h1>
+      <table class="table" >
+      <thead>
+      </thead>
+        <tbody>
+
+
+        <% @friend.each do |friend| %>
+
+          <tr class="success" >
+<td><%= friend.name %></td>
+
+
+
+
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+</div>
+
+
+
+
+    <br>
+  </div>
+</div>
+

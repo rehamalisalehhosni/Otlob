@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   has_many :friends;
 
   has_many :groups;
-  has_many :group_members;
+  has_many :members;
   has_many :orders;
   has_many :invited_friends;
   has_many :order_details;
