@@ -1,8 +1,6 @@
 class PagesController < ApplicationController
+  before_action :authenticate_user!
   def index
-
-
-
     @us = current_user.id
     @order = Order.where('user_id=?',@us).last(5)
 
