@@ -28,7 +28,7 @@ class OrdersController < ApplicationController
     @f=params[:x]
     @oid=3
     # @fid=User.find_by_sql (["select id from users where email =?", @email])
-@fid=1
+    @fid=1
     @invited_friend=InvitedFriend.find_by_sql (["INSERT INTO invited_friends ( status, user_id, order_id) VALUES ('waiting' ,? ,? )", @fid,@oid])
 
     #@invited_friend=Invited_friends.new
