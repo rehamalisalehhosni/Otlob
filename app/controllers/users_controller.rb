@@ -1,5 +1,5 @@
 class UsersController ::OmniauthCallbacksController < Devise::OmniauthCallbacksController< ApplicationController
-autocomplete :user, :name ,:full => true :column_name => 'name'
+autocomplete :user, :email ,:full => true , :column_name => 'email'
   before_action :set_user, only: [:index,:show, :edit, :update, :destroy]
 
   def index
@@ -16,7 +16,7 @@ autocomplete :user, :name ,:full => true :column_name => 'name'
   def show
     # authorize! :read, @user
   end
-  def invite
+  def _invite
     # authorize! :read, @user
     @user=User.new
 

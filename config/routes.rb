@@ -26,7 +26,7 @@ resources :orders do
 resources :invited_friends
 end
 resources :users do
-  get :autocomplete_user_name, :on => :collection
+  get :autocomplete_user_email, :on => :collection
 end
   # devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 

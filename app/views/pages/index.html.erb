@@ -33,29 +33,31 @@
       <thead>
       </thead>
         <tbody>
-<<<<<<< HEAD
 
 
         <% @friend.each do |friend| %>
 
           <tr class="success" >
-          <td><%= friend.name %></td>
+
+
+           <div class="col-sm-6 col-md-6 col-xs-6"> <%= link_to(image_tag(friend.image.url) ) %> <br> <%= friend.name %><br><%= link_to 'unfriend', method: :delete, data: { confirm: 'Are you sure?' } %>
+
+             </div>
 
 
 
-
-          </tr>
-=======
-       
-        <% @friend.each do |friend| %>
-        <% myFriend = User.where('id=?',friend.friend_id) %>
-        <% myFriend.each do |my| %>
-          <%= my.name%>
-          
-         <% end %>
->>>>>>> 7cbfdcb6cf1b1cd3d594c14b205c622d1241f2ca
+                </tr>
       <% end %>
-      </tbody>
+      <% @friend_orders.each do |friend_orders| %>
+            <tr class="" >
+              <td>
+                <%= friend_orders.name %>
+                <br>
+                <%= friend_orders.order %>
+              </td>
+            </tr>
+        <% end %>
+            </tbody>
     </table>
 </div>
 
@@ -65,4 +67,4 @@
     <br>
   </div>
 </div>
-
+	
