@@ -12,7 +12,6 @@
   <div class="field form-group">
     <%= f.label :group_name %>
     <%= f.text_field :group_name ,class:'form-control '%>
-    <%= f.text_field :x ,class:'form-control '%>
     <%= f.hidden_field :user_id, :value => current_user.id %>
     <%= f.submit class: 'btn btn-danger new'%>
 
