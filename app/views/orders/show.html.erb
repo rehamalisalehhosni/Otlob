@@ -18,7 +18,12 @@
 
 <p>
   <strong>Status:</strong>
-  <%= @order.status %>
+  <%= if @order.status == '0'
+  		'not finshed'
+  	  else
+  	  	'Finished'
+  	  end	
+  		 %>
 </p>
 
 
@@ -27,7 +32,6 @@
 <div class="row">
 	<!-- Show Order Details  -->
 	<div class="col-sm-8">
-	<%= @order.status %>
 		<table class="table  table-hover">
 			<thead>
 				<tr>
@@ -91,7 +95,7 @@
 
 <hr>
 <%=	
-	if  @order.status == '1' 
+	if  @order.status == '0' 
 	 	render 'order_details/form'  
 	end 	
 %>

@@ -1,6 +1,6 @@
 
 <tr>
-	<td><%= order_detail.id %></td>
+	<td><%= order_detail.order.id %></td>
 	<td><%= order_detail.user.name %></td>
 	<td><%= order_detail.item %></td>
 	<td><%= order_detail.amount %></td>
@@ -8,7 +8,8 @@
 	<td><%= order_detail.comment %></td>
 	<td>
 	<%= 
-		if  current_user.id == order_detail.user_id  
+
+		if  current_user.id == order_detail.user_id && order_detail.order.status == '0' 
 
 			 link_to '[X]' ,  [order_detail],
 					 method: :delete,

@@ -11,7 +11,14 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
+    
+    @check_friends = InvitedFriend.where("order_id = ?  and user_id = ? " , params[:id] , current_user.id )
     @order = Order.find(params[:id])
+    
+    if @check_friends.length == 0 &&  @order.user_id != current_user.id
+        redirect_to '/orders', notice: 'Sorry This Page Cannot Be Opened'   
+    end
+
   end
 
   # GET /orders/new
