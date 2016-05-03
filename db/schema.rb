@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(version: 20160502144951) do
 
   add_index "friends", ["user_id"], name: "index_friends_on_user_id", using: :btree
 
+  create_table "group_members", force: :cascade do |t|
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "user_id",    limit: 4
+    t.integer  "group_id",   limit: 4
+  end
+
+  add_index "group_members", ["group_id"], name: "index_group_members_on_group_id", using: :btree
+  add_index "group_members", ["user_id"], name: "index_group_members_on_user_id", using: :btree
+
   create_table "groups", force: :cascade do |t|
     t.string   "group_name", limit: 255
     t.datetime "created_at",             null: false
@@ -109,6 +119,8 @@ ActiveRecord::Schema.define(version: 20160502144951) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "friends", "users"
+  add_foreign_key "group_members", "groups"
+  add_foreign_key "group_members", "users"
   add_foreign_key "groups", "users"
   add_foreign_key "identities", "users"
   add_foreign_key "invited_friends", "orders"
