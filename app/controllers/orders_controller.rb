@@ -66,15 +66,56 @@ class OrdersController < ApplicationController
     end
   end
 
-  def friendapproved
+    def friendapproved
 
 
 
       # hab3at  input type hidden  3ashan ya5od mnoh al kema bta3t al Order ID
       # w ha5odha fe al ajax   w ab3atha  l hna
 
-      #@order = Order.find(params[:id])
-      @invitedFriend = InvitedFriend.where("status = 1 AND order_id = 3 " )
+      # SELECT name FROM invited_friends , users WHERE invited_friends.user_id = users.id
+
+      @order = Order.find(params[:id])
+      
+      #@invitedFriend = InvitedFriend.where("status = 1 AND order_id = ? " , @order.id )
+
+      @invitedFriend = InvitedFriend.find_by_sql(["SELECT invited_friends.id , invited_friends.user_id ,  users.image ,invited_friends.status, invited_friends.order_id , users.name  
+                      FROM invited_friends , users
+                      WHERE invited_friends.user_id = users.id
+                      AND invited_friends.status = 1
+                      AND invited_friends.order_id = ? 
+                      group by users.email 
+                      " , @order.id])
+      respond_to do |format|
+           format.html
+           format.js {}
+           format.json {
+              render json: {:invitedFriend => @invitedFriend}
+           }
+      end
+  end
+
+
+  def friendunapproved
+
+
+
+      # hab3at  input type hidden  3ashan ya5od mnoh al kema bta3t al Order ID
+      # w ha5odha fe al ajax   w ab3atha  l hna
+
+      # SELECT name FROM invited_friends , users WHERE invited_friends.user_id = users.id
+
+      @order = Order.find(params[:id])
+      
+      #@invitedFriend = InvitedFriend.where("status = 1 AND order_id = ? " , @order.id )
+
+      @invitedFriend = InvitedFriend.find_by_sql(["SELECT invited_friends.id , invited_friends.user_id ,  users.image ,invited_friends.status, invited_friends.order_id , users.name  
+                      FROM invited_friends , users
+                      WHERE invited_friends.user_id = users.id
+                      AND invited_friends.status = 0
+                      AND invited_friends.order_id = ? 
+                      group by users.email 
+                      " , @order.id])
       respond_to do |format|
            format.html
            format.js {}
