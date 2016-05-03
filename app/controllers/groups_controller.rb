@@ -22,10 +22,21 @@ class GroupsController < ApplicationController
     end
  end  
  def  group_member
-      @id= [params[:id]]
+      @id= params[:id]
+      @us = current_user.id
       @group=Group.find(@id)
       #not read where
-      @usrGroups=User.joins( groups: :members).where('groups.user_id=?', @id)
+      #@usrGroups=User.joins( groups: :members).where('groups.user_id=?', @id)
+      
+
+
+      @usrGroups=User.find_by_sql(["
+                                SELECT users.*  FROM users,groups,members where 
+                                groups.id=members.group_id
+                                AND  groups.user_id=?
+                                AND  groups.id=?
+                                AND users.id = members.user_id
+                                 " , @us , @id])
       #query error
 
 =begin
@@ -49,10 +60,26 @@ class GroupsController < ApplicationController
     @groups= Group.find(1)
     @member =@groups.members.new
     @groupsData = Group.all
-    @user = User.new
+    #@user = User.all
+    @user=User.select('email')
+    @data = Array.new
+    @user.each do |data|
+      @n={label: data.id  ,value: data.email  }
+      @data.push(@n)
+     end  
   end
 
-
+  def get_user_data
+       @email= params[:email]
+       @id=User.select('id').where('email=?', @email)
+       respond_to do |format|
+           format.html
+           format.js {} 
+           format.json { 
+              render json: {:id => @id}
+           } 
+        end
+  end  
   # GET /groups/1/edit
   def edit
   end

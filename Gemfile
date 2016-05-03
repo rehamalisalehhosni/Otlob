@@ -8,7 +8,7 @@ gem 'omniauth-linkedin'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'fog'
-gem 'rails3-jquery-autocomplete'
+gem 'rails4-autocomplete'
 gem 'jquery-ui-rails'
 
 

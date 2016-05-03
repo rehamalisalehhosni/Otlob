@@ -11,9 +11,10 @@
     </div>
   <% end %>
   <%= f.label :addFriend %>:
-  <%= f.text_field :user_id , { value: current_user.id } %><br />
+  <%= text_field_tag :data   %><br />
   <%= f.hidden_field :group_id, { value: 1 } %>
+  <%= f.hidden_field :user_id, { value: 1 } %>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: 'btn btn-danger new'%>
   </div>
 <% end %>

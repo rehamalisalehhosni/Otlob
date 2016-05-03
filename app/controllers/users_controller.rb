@@ -1,9 +1,12 @@
 class UsersController ::OmniauthCallbacksController < Devise::OmniauthCallbacksController< ApplicationController
-autocomplete :user, :email ,:full => true , :column_name => 'email'
+  #autocomplete :id, :email ,:full => true ,:column_name => 'email'
+  autocomplete :user, :email do |items|
+     CustomJSON::Encoder.encode(items)
+  end
+
   before_action :set_user, only: [:index,:show, :edit, :update, :destroy]
 
   def index
-
     if current_user
       @uid = current_user.id
     else
@@ -16,7 +19,7 @@ autocomplete :user, :email ,:full => true , :column_name => 'email'
   def show
     # authorize! :read, @user
   end
-  def _invite
+  def invite
     # authorize! :read, @user
     @user=User.new
 
