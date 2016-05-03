@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   #resources :members
   #resources :groups
+  get 'users/autocomplete_user_email'
   resources :order_details
   get 'pages/index'
   get 'users/index'
@@ -14,8 +15,13 @@ Rails.application.routes.draw do
    resources :members
   end
   resources :friends
+
+
+
   #devise_for :users
   get 'groups/group_member/:id', to: 'groups#group_member'
+   get 'get_user_data'=>'groups#get_user_data'
+
   get 'users/invite' ,to:"users#invite"
   devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
 
@@ -32,9 +38,8 @@ Rails.application.routes.draw do
 resources :orders do
 resources :invited_friends
 end
-resources :users do
-  get :autocomplete_user_email, :on => :collection
-end
+
+
   # devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   #match '/auth/facebook/callback' => 'session#authorize_callback'
