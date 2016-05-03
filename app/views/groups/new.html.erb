@@ -42,7 +42,7 @@
 	    dataType: "JSON",
 	    success: function(data) {
 	      	$("#results h2").html(data.groups[0].group_name);
-	      	$("#group_member_group_id").attr('value',data.groups[0].id);
+	      	$("#member_group_id").attr('value',data.groups[0].id);
 	      for (var x=0;x< data.usrGroups.length;x++){
 	      	$('#users').append("<li><img src='"+data.usrGroups[x].image.url+"' class='img'/>"+data.usrGroups[x].name+"</li>");
 	      } 	
