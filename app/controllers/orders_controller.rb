@@ -18,6 +18,11 @@ class OrdersController < ApplicationController
   def new
     @order = Order.new
     @invited_friend = InvitedFriend.new
+    @f=params[:x]
+    @oid=3
+    # @fid=User.find_by_sql (["select id from users where email =?", @email])
+@fid=1
+    @invited_friend=InvitedFriend.find_by_sql (["INSERT INTO invited_friends ( status, user_id, order_id) VALUES ('waiting' ,? ,? )", @fid,@oid])
 
     #@invited_friend=Invited_friends.new
   end
@@ -76,15 +81,15 @@ class OrdersController < ApplicationController
       # SELECT name FROM invited_friends , users WHERE invited_friends.user_id = users.id
 
       @order = Order.find(params[:id])
-      
+
       #@invitedFriend = InvitedFriend.where("status = 1 AND order_id = ? " , @order.id )
 
-      @invitedFriend = InvitedFriend.find_by_sql(["SELECT invited_friends.id , invited_friends.user_id ,  users.image ,invited_friends.status, invited_friends.order_id , users.name  
+      @invitedFriend = InvitedFriend.find_by_sql(["SELECT invited_friends.id , invited_friends.user_id ,  users.image ,invited_friends.status, invited_friends.order_id , users.name
                       FROM invited_friends , users
                       WHERE invited_friends.user_id = users.id
                       AND invited_friends.status = 1
-                      AND invited_friends.order_id = ? 
-                      group by users.email 
+                      AND invited_friends.order_id = ?
+                      group by users.email
                       " , @order.id])
       respond_to do |format|
            format.html
@@ -106,15 +111,15 @@ class OrdersController < ApplicationController
       # SELECT name FROM invited_friends , users WHERE invited_friends.user_id = users.id
 
       @order = Order.find(params[:id])
-      
+
       #@invitedFriend = InvitedFriend.where("status = 1 AND order_id = ? " , @order.id )
 
-      @invitedFriend = InvitedFriend.find_by_sql(["SELECT invited_friends.id , invited_friends.user_id ,  users.image ,invited_friends.status, invited_friends.order_id , users.name  
+      @invitedFriend = InvitedFriend.find_by_sql(["SELECT invited_friends.id , invited_friends.user_id ,  users.image ,invited_friends.status, invited_friends.order_id , users.name
                       FROM invited_friends , users
                       WHERE invited_friends.user_id = users.id
                       AND invited_friends.status = 0
-                      AND invited_friends.order_id = ? 
-                      group by users.email 
+                      AND invited_friends.order_id = ?
+                      group by users.email
                       " , @order.id])
       respond_to do |format|
            format.html
