@@ -94,3 +94,52 @@ function unAccept(){
 			}
 		});		
 }
+
+
+// Join Order
+
+function join_order(order_id){
+
+	var myOrderId = order_id;
+
+
+	/*$.ajax(url: "/articles" , type:'POST').done (html) ->
+	$("#viewMyTable").append html*/
+	$.ajax(
+		{
+			type : 'GET',
+			data : 'id='+myOrderId,
+			url : "/join_order" ,
+			dataType: "json",
+			success : function( data )
+			{
+				window.location = "/orders/"+myOrderId;
+				//console.log("status Updated")
+					
+			}
+		});		
+}
+
+
+// Cancel My Invitation
+function cancel_order(order_id){
+
+	var myOrderId = order_id;
+
+
+	/*$.ajax(url: "/articles" , type:'POST').done (html) ->
+	$("#viewMyTable").append html*/
+	$.ajax(
+		{
+			type : 'GET',
+			data : 'id='+myOrderId,
+			url : "/cancel_order" ,
+			dataType: "json",
+			success : function( data )
+			{
+				window.location = "/orders/"+myOrderId;
+				//console.log("status Updated")
+					
+			}
+		});		
+}
