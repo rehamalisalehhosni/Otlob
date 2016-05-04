@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20160504105707) do
-=======
-ActiveRecord::Schema.define(version: 20160503083731) do
 
   create_table "follows", force: :cascade do |t|
     t.integer  "followable_id",   limit: 4,                   null: false
@@ -28,7 +25,6 @@ ActiveRecord::Schema.define(version: 20160503083731) do
 
   add_index "follows", ["followable_id", "followable_type"], name: "fk_followables", using: :btree
   add_index "follows", ["follower_id", "follower_type"], name: "fk_follows", using: :btree
->>>>>>> 480ae10c5116798bc621388a9741ec393e545d3c
 
   create_table "friends", force: :cascade do |t|
     t.integer  "friend_id",  limit: 4
@@ -38,6 +34,16 @@ ActiveRecord::Schema.define(version: 20160503083731) do
   end
 
   add_index "friends", ["user_id"], name: "index_friends_on_user_id", using: :btree
+
+  create_table "group_members", force: :cascade do |t|
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "user_id",    limit: 4
+    t.integer  "group_id",   limit: 4
+  end
+
+  add_index "group_members", ["group_id"], name: "index_group_members_on_group_id", using: :btree
+  add_index "group_members", ["user_id"], name: "index_group_members_on_user_id", using: :btree
 
   create_table "groups", force: :cascade do |t|
     t.string   "group_name", limit: 255
@@ -60,8 +66,8 @@ ActiveRecord::Schema.define(version: 20160503083731) do
 
   create_table "invited_friends", force: :cascade do |t|
     t.string   "status",     limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.integer  "user_id",    limit: 4
     t.integer  "order_id",   limit: 4
   end
@@ -121,14 +127,14 @@ ActiveRecord::Schema.define(version: 20160503083731) do
     t.datetime "updated_at",                                      null: false
     t.string   "name",                   limit: 255
     t.string   "image",                  limit: 255
-    t.string   "provider",               limit: 255
-    t.string   "uid",                    limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "friends", "users"
+  add_foreign_key "group_members", "groups"
+  add_foreign_key "group_members", "users"
   add_foreign_key "groups", "users"
   add_foreign_key "identities", "users"
   add_foreign_key "invited_friends", "orders"

@@ -5,18 +5,15 @@ Rails.application.routes.draw do
   get 'pages/index'
   get 'users/index'
   root to: 'pages#index'
-<<<<<<< HEAD
-  resources :friends
-=======
   resources :order_details
   resources :invited_friends
   resources :orders
   resources :friends
   resources :orders
->>>>>>> 480ae10c5116798bc621388a9741ec393e545d3c
   resources :groups do
    resources :members
   end
+  resources :friends
 
 
 
@@ -31,14 +28,16 @@ get 'get_user_by_email'=>'orders#get_user_by_email'
 
   match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
 
- get 'check_invited_friends'=>'invited_friends#check_invited_friends'
+
+
+  get 'check_invited_friends'=>'invited_friends#check_invited_friends'
  get 'join_order'=>'invited_friends#join_order'
  get 'cancel_order'=>'invited_friends#cancel_order'
  get 'friendapproved'=>'orders#friendapproved'
  get 'friendunapproved'=>'orders#friendunapproved'
+ get 'finish_order'=>'orders#finish_order'
 
-<<<<<<< HEAD
-=======
+
 
 
   resources :orders do
@@ -56,9 +55,8 @@ get 'get_user_by_email'=>'orders#get_user_by_email'
   #     get :unfollow
   #   end
   # end
- get 'friendunapproved'=>'orders#friendunapproved'
 
->>>>>>> 480ae10c5116798bc621388a9741ec393e545d3c
+
  match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
  match 'auth/failure', to: redirect('/'), via: [:get, :post]
  match 'signout', to: 'sessions#destroy', as: 'signout', via: [:get, :post]

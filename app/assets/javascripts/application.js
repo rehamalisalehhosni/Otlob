@@ -143,3 +143,26 @@ function cancel_order(order_id){
 			}
 		});		
 }
+
+// Cancel My Invitation
+function finish_order(order_id){
+
+	var myOrderId = order_id;
+
+
+	/*$.ajax(url: "/articles" , type:'POST').done (html) ->
+	$("#viewMyTable").append html*/
+	$.ajax(
+		{
+			type : 'GET',
+			data : 'id='+myOrderId,
+			url : "/finish_order" ,
+			dataType: "json",
+			success : function( data )
+			{
+				window.location = "/orders/";
+				//console.log("status Updated")
+					
+			}
+		});		
+}

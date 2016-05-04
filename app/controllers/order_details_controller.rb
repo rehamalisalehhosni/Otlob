@@ -61,7 +61,7 @@ class OrderDetailsController < ApplicationController
     @check_myOrders = OrderDetail.where("order_id = ?  and user_id = ? " , @order_detail[:order_id] , current_user.id )
     #aza kan mafesh hy3ml update  ll status bta3to
     if @check_myOrders.length == 0 
-        @update_friend=InvitedFriend.where(:order_id =>  @order_detail[:order_id] , :user_id => current_user.id ).update_all(:status => '0')   
+        @update_friend=InvitedFriend.where(:order_id =>  @order_detail[:order_id] , :user_id => current_user.id ).update_all(:status => '2')   
     end
     redirect_to order_path(@myid)
 

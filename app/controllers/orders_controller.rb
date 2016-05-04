@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    @orders = Order.find_by_sql (["select orders.* from orders , invited_friends where orders.user_id =1 or invited_friends.user_id=1  and orders.id=invited_friends.order_id group by  orders.resturant"])
   end
 
   # GET /orders/1
@@ -25,7 +25,7 @@ class OrdersController < ApplicationController
   def new
     @order = Order.new
     @invited_friend = InvitedFriend.new
-<<<<<<< HEAD
+
   #  @userData=User.all
     @user=User.select('email')
     @data = Array.new
@@ -33,14 +33,7 @@ class OrdersController < ApplicationController
       @n={label: data.id  ,value: data.email  }
       @data.push(@n)
      end
-=======
-    @f=params[:x]
-    @oid=3
-    # @fid=User.find_by_sql (["select id from users where email =?", @email])
-    @fid=1
-    @invited_friend=InvitedFriend.find_by_sql (["INSERT INTO invited_friends ( status, user_id, order_id) VALUES ('waiting' ,? ,? )", @fid,@oid])
 
->>>>>>> 480ae10c5116798bc621388a9741ec393e545d3c
     #@invited_friend=Invited_friends.new
   end
 
@@ -62,7 +55,7 @@ class OrdersController < ApplicationController
 @f=@friends[0].invited.chomp.split(',')
 @f.each do |fr|
     @fid=User.find_by_sql (["select id from users where email =?",fr.chomp])
-    object = InvitedFriend.new(:user_id => @fid[0].id, :order_id => @order.id , :status =>"waiting" )
+    object = InvitedFriend.new(:user_id => @fid[0].id, :order_id => @order.id , :status =>"0" )
     object.save
  end
 
@@ -162,6 +155,25 @@ class OrdersController < ApplicationController
       end
   end
 
+  def finish_order
+
+
+
+      # hab3at  input type hidden  3ashan ya5od mnoh al kema bta3t al Order ID
+      # w ha5odha fe al ajax   w ab3atha  l hna
+
+      # SELECT name FROM invited_friends , users WHERE invited_friends.user_id = users.id
+
+      @order = Order.where(:id =>  params[:id] , :user_id => current_user.id ).update_all(:status => '1')
+
+      respond_to do |format|
+           format.html
+           format.js {}
+           format.json {
+              render json: {:invitedFriend => @invitedFriend}
+           }
+      end
+  end
 
   def get_user_by_email
     @email= params[:email]
