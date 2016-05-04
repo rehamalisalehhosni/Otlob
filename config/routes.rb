@@ -26,7 +26,14 @@ Rails.application.routes.draw do
 
   match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
 
+ get 'check_invited_friends'=>'invited_friends#check_invited_friends'
+ get 'join_order'=>'invited_friends#join_order'
+ get 'cancel_order'=>'invited_friends#cancel_order'
  get 'friendapproved'=>'orders#friendapproved'
+ get 'friendunapproved'=>'orders#friendunapproved'
+
+
+
   resources :orders do
   resources :invited_friends
   end

@@ -64,6 +64,45 @@ class InvitedFriendsController < ApplicationController
     end
   end
 
+
+
+  def check_invited_friends
+     
+      
+      @checkInvitedFriend = InvitedFriend.where("status = 0  and user_id = ? " , current_user.id )
+
+      respond_to do |format|
+           format.html
+           format.js {}
+           format.json {
+              render json: {:checkInvitedFriend => @checkInvitedFriend}
+           }
+      end
+  end
+
+  def join_order
+      @check_friends = InvitedFriend.where("order_id = ?  and user_id = ?  and status=0" , params[:id] , current_user.id )
+      if @check_friends.length > 0 
+          @update_friend=InvitedFriend.where(:order_id =>  params[:id] , :user_id => current_user.id , :status => 0).update_all(:status => '1')   
+      end
+
+      redirect_to order_path(params[:id])
+
+  end 
+
+
+  def cancel_order
+      @check_friends = InvitedFriend.where("order_id = ?  and user_id = ?  and status=0" , params[:id] , current_user.id )
+      if @check_friends.length > 0 
+          @update_friend=InvitedFriend.where(:order_id =>  params[:id] , :user_id => current_user.id ).update_all(:status => '2')   
+      end
+
+      redirect_to order_path(params[:id])
+
+  end 
+
+  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_invited_friend

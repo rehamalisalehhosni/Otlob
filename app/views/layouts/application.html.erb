@@ -7,9 +7,66 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
   <%= csrf_meta_tags %>
+
+  <% if user_signed_in? %>
+    <script>
+      ordersRedirectDinamicaly();
+      function ordersRedirectDinamicaly(){
+        $.ajax(
+          {
+            type : 'GET',
+            url : "/check_invited_friends" ,
+            dataType: "json",
+            success : function( data )
+            {
+
+              if(data.checkInvitedFriend.length != "0"){
+                   var myCheckInvitedFriend = '';
+
+                $('#checkInvitedFriendView').modal();
+
+                  for(var i = 0; i < data.checkInvitedFriend.length; ++i) {     
+                    //console.log(data.checkInvitedFriend[i].id + " " + " Order_id  " + data.checkInvitedFriend[i].order_id)
+                     myCheckInvitedFriend +='<p class="row"><span class="col-sm-8">You Have Invited For New Order  </span><span class="col-sm-4 text-right"><a class="btn btn-info" onclick="join_order('+data.checkInvitedFriend[0].order_id+')" > Join </a> <a class="btn btn-info" onclick="cancel_order('+data.checkInvitedFriend[0].order_id+')"> Cancel</a></span></p>';
+                  } 
+                  $("#checkInvitedFriendResult").html(myCheckInvitedFriend);
+                  }
+                  
+              
+            }
+             
+          }); 
+          setTimeout(ordersRedirectDinamicaly,10000);
+      }
+      
+    </script>
+  
+  <% end %>
+
+
 </head>
 <body>
-    <div class="container-fluid">
+
+<div class="modal  fade bs-example-modal-lg" id="checkInvitedFriendView" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span >&times;</span></button>
+                    <h4 class="modal-title text-left">Invitations</h4>
+                  </div>
+                  <div class="modal-body " id="checkInvitedFriendResult">
+                        
+                  </div>
+                  <div class="modal-footer">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+    <div class="container-fluid" id="mytest">
           <div class="container-fluid">
               <header>
                 <div class="logo pull-left col-md-6 col-sm-12">
@@ -53,13 +110,14 @@
 
                   </div>
                 </nav>
-				 <div class="content ">
-				<%= yield %>
-				 </div>
+         <div class="content ">
+        <%= yield %>
+         </div>
           </div>
         </div>
           <div class="footer">
             <p>Copy right &copy; iti 2015 </p>
           </div>
+
 </body>
 </html>
