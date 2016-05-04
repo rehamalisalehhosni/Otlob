@@ -2,9 +2,8 @@ source 'https://rubygems.org'
 
 gem 'devise'
 gem 'omniauth'
-# gem 'omniauth-facebook'
+gem 'omniauth-facebook'
 
-gem 'omniauth-facebook', '1.4.0'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'fog'
@@ -26,7 +25,6 @@ gem 'coffee-rails', '~> 4.1.0'
 # gem 'therubyracer', platforms: :ruby
 gem 'font-awesome-sass', '~> 4.5.0'
 
-gem "omniauth-google-oauth2"
 
 
 gem 'bootstrap-sass', '~> 3.3.6'

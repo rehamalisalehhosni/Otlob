@@ -38,7 +38,7 @@ class MembersController < ApplicationController
 
     respond_to do |format|
       if @member.save
-        format.html { redirect_to @group, notice: 'Member was successfully created.' }
+        format.html { redirect_to new_group_path, notice: 'Member was successfully created.' }
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }

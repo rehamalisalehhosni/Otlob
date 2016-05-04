@@ -251,9 +251,6 @@ GEM
       rack (>= 1.0, < 3)
     omniauth-facebook (1.4.0)
       omniauth-oauth2 (~> 1.0.2)
-    omniauth-google-oauth2 (0.2.2)
-      omniauth (~> 1.0)
-      omniauth-oauth2
     omniauth-oauth2 (1.0.3)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
@@ -351,8 +348,7 @@ DEPENDENCIES
   mini_magick
   mysql2 (>= 0.3.13, < 0.5)
   omniauth
-  omniauth-facebook (= 1.4.0)
-  omniauth-google-oauth2
+  omniauth-facebook
   rails (= 4.2.6)
   rails4-autocomplete
   sass-rails (~> 5.0)
