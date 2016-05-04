@@ -3,36 +3,18 @@ class FriendsController < ApplicationController
 
   # GET /friends
   # GET /friends.json
-  
   def index
-    	#@friends = Friend.all
-      @us = current_user.id
-      #@friends=User.find_by_sql (["select users.* from users, friends where user_id = ? and users.id = friends.friend_id", @us])
-      # @friends=Friend.where("user_id= ?" , @us)
-      #@friends=Friend.find_by_sql(["SELECT * FROM friends,users WHERE friends.user_id=? and friends.friend_id=users.id" ,@us])
-      @friends=Friend.find_by_sql(["SELECT users.name , users.image , friends.id , friends.friend_id FROM friends,users WHERE friends.user_id=? and friends.friend_id=users.id" ,@us])
-
+    @friends = Friend.all
   end
 
   # GET /friends/1
   # GET /friends/1.json
   def show
-    @user = User.find(params[:id])
-
-
-
   end
-  #
-  # def follow
-  #   @user = User.find(params[:id])
-  #   current_user.follow(@user)
-  #   redirect_to :back
-  # end
 
   # GET /friends/new
   def new
     @friend = Friend.new
-
   end
 
   # GET /friends/1/edit
@@ -71,10 +53,6 @@ class FriendsController < ApplicationController
 
   # DELETE /friends/1
   # DELETE /friends/1.json
-
-
-
-
   def destroy
     @friend.destroy
     respond_to do |format|

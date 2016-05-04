@@ -28,6 +28,7 @@ gem 'font-awesome-sass', '~> 4.5.0'
 
 gem "omniauth-google-oauth2"
 
+gem "acts_as_follower"
 
 gem 'bootstrap-sass', '~> 3.3.6'
 #gem 'sass-rails', '>= 3.2'

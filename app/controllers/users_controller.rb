@@ -1,5 +1,5 @@
 class UsersController ::OmniauthCallbacksController < Devise::OmniauthCallbacksController< ApplicationController
-autocomplete :user, :name ,:full => true :column_name => 'name'
+#  autocomplete :user, :name ,:full => true :column_name => 'name'
   before_action :set_user, only: [:index,:show, :edit, :update, :destroy]
 
   def index
@@ -47,7 +47,7 @@ autocomplete :user, :name ,:full => true :column_name => 'name'
     # authorize! :update, @user
     if request.patch? && params[:user] #&& params[:user][:email]
       if @user.update(user_params)
-      #  @user.skip_reconfirmation!
+        #  @user.skip_reconfirmation!
         sign_in(@user, :bypass => true)
         redirect_to @user, notice: 'Your profile was successfully updated.'
       else
@@ -56,13 +56,13 @@ autocomplete :user, :name ,:full => true :column_name => 'name'
     end
   end
 
-#*****************************************
-# def setup
-#  request.env['omniauth.strategy'].options[:client_id] = @site.facebook_key
-#  request.env['omniauth.strategy'].options[:client_secret] = @site.facebook_secret
-#  render :text => "Setup complete.", :status => 404
-# end
-#*****************************************
+  #*****************************************
+  # def setup
+  #  request.env['omniauth.strategy'].options[:client_id] = @site.facebook_key
+  #  request.env['omniauth.strategy'].options[:client_secret] = @site.facebook_secret
+  #  render :text => "Setup complete.", :status => 404
+  # end
+  #*****************************************
 
 
 
@@ -77,16 +77,16 @@ autocomplete :user, :name ,:full => true :column_name => 'name'
   end
 
   private
-    def set_user
-      @user = User.find(params[:id])
+  def set_user
+    @user = User.find(params[:id])
 
-    end
+  end
 
-    def user_params
-      accessible = [ :name, :email ] # extend with your own params
-      accessible << [ :password, :password_confirmation ] unless params[:user][:password].blank?
-      params.require(:user).permit(accessible)
-    end
+  def user_params
+    accessible = [ :name, :email ] # extend with your own params
+    accessible << [ :password, :password_confirmation ] unless params[:user][:password].blank?
+    params.require(:user).permit(accessible)
+  end
 
 
   def google_oauth2

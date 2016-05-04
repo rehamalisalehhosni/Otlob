@@ -31,12 +31,12 @@ Rails.application.routes.draw do
 
 
   ###########################
-  # resources :friends do
-  #   member do
-  #     get :follow
-  #     get :unfollow
-  #   end
-  # end
+  resources :friends do
+    member do
+      get :follow
+      get :unfollow
+    end
+  end
 
 
 
