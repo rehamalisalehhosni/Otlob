@@ -17,6 +17,8 @@ Rails.application.routes.draw do
 
 
 
+get 'get_user_by_email'=>'orders#get_user_by_email'
+
   #devise_for :users
   get 'groups/group_member/:id', to: 'groups#group_member'
    get 'get_user_data'=>'groups#get_user_data'
@@ -26,11 +28,15 @@ Rails.application.routes.draw do
 
   match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
 
- get 'check_invited_friends'=>'invited_friends#check_invited_friends'
+
+
+  get 'check_invited_friends'=>'invited_friends#check_invited_friends'
  get 'join_order'=>'invited_friends#join_order'
  get 'cancel_order'=>'invited_friends#cancel_order'
  get 'friendapproved'=>'orders#friendapproved'
  get 'friendunapproved'=>'orders#friendunapproved'
+ get 'finish_order'=>'orders#finish_order'
+
 
 
 
@@ -49,7 +55,7 @@ Rails.application.routes.draw do
   #     get :unfollow
   #   end
   # end
- get 'friendunapproved'=>'orders#friendunapproved'
+
 
  match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
  match 'auth/failure', to: redirect('/'), via: [:get, :post]

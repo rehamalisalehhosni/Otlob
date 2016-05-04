@@ -2,27 +2,66 @@
 
 <h1>Listing Orders</h1>
 
-<table>
+<div class="row">
+    <a class="btn btn-info" href="/orders/new">New Order </a>
+
+</div>
+
+<table class="table  table-hover">
   <thead>
     <tr>
       <th>Order</th>
       <th>Resturant</th>
-      <th>Image</th>
+      <th>Invited</th>
+      <th>Joined</th>
       <th>Status</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @orders.each do |order| %>
+    <% @orders.each do |order| 
+
+       @joinedFriend = InvitedFriend.find_by_sql(["SELECT invited_friends.id , invited_friends.user_id ,  users.image ,invited_friends.status, invited_friends.order_id , users.name
+                      FROM invited_friends , users
+                      WHERE invited_friends.user_id = users.id
+                      AND invited_friends.status = 1
+                      AND invited_friends.order_id = ?
+                      group by users.email
+                      " , order.id ])
+
+      @allinvitedFriend = InvitedFriend.find_by_sql(["SELECT invited_friends.id , invited_friends.user_id ,  users.image ,invited_friends.status, invited_friends.order_id , users.name
+                      FROM invited_friends , users
+                      WHERE invited_friends.user_id = users.id
+                      AND invited_friends.order_id = ?
+                      group by users.email
+                      " , order.id])
+      %>
       <tr>
         <td><%= order.order %></td>
         <td><%= order.resturant %></td>
-        <td><%= order.image %></td>
-        <td><%= order.status %></td>
-        <td><%= link_to 'Show', order %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= @allinvitedFriend.length %></td>
+        <td><%= @joinedFriend.length %></td>
+        
+        <td><%= 
+
+            
+            if order.status == '0'
+                'Not Finished'
+            else
+                'Finish'    
+            end    
+            %></td>
+        <td colspan="3">
+          <a class="btn btn-info " href="/orders/<%= order.id %>">View</a>
+          <% 
+            if order.user_id == current_user.id
+              if order.status == '0'
+           %>
+          <a class="btn btn-info " onclick="finish_order(<%= order.id %>)">Finsh</a>
+            <% end %>
+          <%= link_to 'Cancel',  order, method: :delete, data: { confirm: 'Are you sure?' } , :class => 'btn btn-info '  %></td>
+          <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +69,4 @@
 
 <br>
 
-<%= link_to 'New Order', new_order_path %>
+

@@ -5,18 +5,18 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    @orders = Order.find_by_sql (["select orders.* from orders , invited_friends where orders.user_id =1 or invited_friends.user_id=1  and orders.id=invited_friends.order_id group by  orders.resturant"])
   end
 
   # GET /orders/1
   # GET /orders/1.json
   def show
-    
+
     @check_friends = InvitedFriend.where("order_id = ?  and user_id = ? " , params[:id] , current_user.id )
     @order = Order.find(params[:id])
-    
+
     if @check_friends.length == 0 &&  @order.user_id != current_user.id
-        redirect_to '/orders', notice: 'Sorry This Page Cannot Be Opened'   
+        redirect_to '/orders', notice: 'Sorry This Page Cannot Be Opened'
     end
 
   end
@@ -25,11 +25,14 @@ class OrdersController < ApplicationController
   def new
     @order = Order.new
     @invited_friend = InvitedFriend.new
-    @f=params[:x]
-    @oid=3
-    # @fid=User.find_by_sql (["select id from users where email =?", @email])
-    @fid=1
-    @invited_friend=InvitedFriend.find_by_sql (["INSERT INTO invited_friends ( status, user_id, order_id) VALUES ('waiting' ,? ,? )", @fid,@oid])
+
+  #  @userData=User.all
+    @user=User.select('email')
+    @data = Array.new
+    @user.each do |data|
+      @n={label: data.id  ,value: data.email  }
+      @data.push(@n)
+     end
 
     #@invited_friend=Invited_friends.new
   end
@@ -40,13 +43,28 @@ class OrdersController < ApplicationController
 
   # POST /orders
   # POST /orders.json
-  def create
-    @order = Order.new(order_params)
+   def create
+    # @invited_friend = InvitedFriend.new(params[:order_params])
+
+  #     @invited_friend = InvitedFriend.new
+@order = Order.new(order_params)
+
+@oid =@order.save
+@friends=Order.find_by_sql (["select * from orders where id =?", @order.id])
+@f = []
+@f=@friends[0].invited.chomp.split(',')
+@f.each do |fr|
+    @fid=User.find_by_sql (["select id from users where email =?",fr.chomp])
+    object = InvitedFriend.new(:user_id => @fid[0].id, :order_id => @order.id , :status =>"0" )
+    object.save
+ end
 
     respond_to do |format|
-      if @order.save
+      if @oid
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
+        #redirect_to params[:redirect_to] || @order
+
       else
         format.html { render :new }
         format.json { render json: @order.errors, status: :unprocessable_entity }
@@ -137,6 +155,38 @@ class OrdersController < ApplicationController
       end
   end
 
+  def finish_order
+
+
+
+      # hab3at  input type hidden  3ashan ya5od mnoh al kema bta3t al Order ID
+      # w ha5odha fe al ajax   w ab3atha  l hna
+
+      # SELECT name FROM invited_friends , users WHERE invited_friends.user_id = users.id
+
+      @order = Order.where(:id =>  params[:id] , :user_id => current_user.id ).update_all(:status => '1')
+
+      respond_to do |format|
+           format.html
+           format.js {}
+           format.json {
+              render json: {:invitedFriend => @invitedFriend}
+           }
+      end
+  end
+
+  def get_user_by_email
+    @email= params[:email]
+    @u=User.where(:email => @email)
+    respond_to do |format|
+    format.html
+    format.js {}
+    format.json {
+       render json: {:u => @u }
+    }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order
@@ -145,6 +195,7 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:order, :resturant, :image, :status , :user_id)
+      params.require(:order).permit(:order, :resturant, :image, :status , :user_id,:invited)
     end
+
 end

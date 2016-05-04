@@ -22,7 +22,7 @@
   		'not finshed'
   	  else
   	  	'Finished'
-  	  end	
+  	  end
   		 %>
 </p>
 
@@ -45,15 +45,15 @@
 				</tr>
 			</thead>
 			<tbody>
-				<%= render @order.order_details %>		
+				<%= render @order.order_details %>
 			</tbody>
 		</table>
-		
+
 	</div>
 
 
 
-	
+
 
 
 
@@ -76,14 +76,16 @@
 			      <div class="modal-body">
 				      <div class="row" id="viewResult">
 
-				      		
-				      		
+
+
 				      </div>
 
 			      </div>
+
+  
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			        
+
 			      </div>
 			    </div>
 			  </div>
@@ -94,14 +96,12 @@
 </div>
 
 <hr>
-<%=	
-	if  @order.status == '0' 
-	 	render 'order_details/form'  
-	end 	
+<%=
+	if  @order.status == '0'
+	 	render 'order_details/form'
+	end
 %>
 
 
 
-
-
-
+</div>

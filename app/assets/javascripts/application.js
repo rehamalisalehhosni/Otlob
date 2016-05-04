@@ -38,23 +38,23 @@ function myFunc(){
 				//console.log( data.invitedFriend[0].user.id);
 				if(data.invitedFriend.length != "0"){
 					for(var i = 0; i < data.invitedFriend.length; ++i) {
-					
+
 				    console.log(data.invitedFriend[i].id)
 					$("#myStatusTitle").html('Joined Friends');
 					myResult +='<div class="col-sm-6"><img class="img-responsive img-thumbnail" src="/uploads/user/image/'+data.invitedFriend[i].user_id+'/'+data.invitedFriend[i].image+'"><h3>'+data.invitedFriend[i].name+'</h3></div>';
-					}	
+					}
 					$("#viewResult").html(myResult);
 				}
 				else
 				{
 					$("#viewResult").html("<p align='center'>No Joined Users</p>");
 				}
-				
-				
+
+
 				//$("#viewMyTable").html(data.articles[0].title );
-				//console.log( data );		
+				//console.log( data );
 			}
-		});		
+		});
 }
 
 
@@ -78,7 +78,7 @@ function unAccept(){
 				if(data.invitedFriend.length != "0"){
 					//console.log( data.invitedFriend[0].user.id);
 					for(var i = 0; i < data.invitedFriend.length; ++i) {
-						
+
 					    console.log(data.invitedFriend[i].id)
 						$("#myStatusTitle").html('Un Joined Friends');
 						myResult +='<div class="col-sm-6"><img class="img-responsive img-thumbnail" src="/uploads/user/image/'+data.invitedFriend[i].user_id+'/'+data.invitedFriend[i].image+'"><h3>'+data.invitedFriend[i].name+'</h3></div>';
@@ -90,9 +90,9 @@ function unAccept(){
 					$("#viewResult").html("<p align='center'>No Un Joined Users</p>");
 				}
 				//$("#viewMyTable").html(data.articles[0].title );
-				//console.log( data );		
+				//console.log( data );
 			}
-		});		
+		});
 }
 
 
@@ -138,6 +138,29 @@ function cancel_order(order_id){
 			success : function( data )
 			{
 				window.location = "/orders/"+myOrderId;
+				//console.log("status Updated")
+					
+			}
+		});		
+}
+
+// Cancel My Invitation
+function finish_order(order_id){
+
+	var myOrderId = order_id;
+
+
+	/*$.ajax(url: "/articles" , type:'POST').done (html) ->
+	$("#viewMyTable").append html*/
+	$.ajax(
+		{
+			type : 'GET',
+			data : 'id='+myOrderId,
+			url : "/finish_order" ,
+			dataType: "json",
+			success : function( data )
+			{
+				window.location = "/orders/";
 				//console.log("status Updated")
 					
 			}
