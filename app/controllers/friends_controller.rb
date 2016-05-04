@@ -13,7 +13,9 @@ class FriendsController < ApplicationController
       #@friends=Friend.find_by_sql(["SELECT * FROM friends,users WHERE friends.user_id=? and friends.friend_id=users.id" ,@us])
       @friends=Friend.find_by_sql(["SELECT users.name , users.image , friends.id , friends.friend_id FROM friends,users WHERE friends.user_id=? and friends.friend_id=users.id" ,@us])
 
+
   end
+
 
   # GET /friends/1
   # GET /friends/1.json
@@ -43,17 +45,24 @@ class FriendsController < ApplicationController
   # POST /friends
   # POST /friends.json
   def create
-    @friend = Friend.new(friend_params)
+    @friend = Friend.new()
+    @friend= Friend.create(params.require(:friend).permit(:friend_id))
+    @fid = params[:friend][:friend_id]
+    user = User.find_by(email: @fid).id
+    if user_signed_in?
+      @friend.user_id=current_user.id
+      @friend.friend_id= user
+      @friend.save()
+      @friend = Friend.new()
 
-    respond_to do |format|
-      if @friend.save
-        format.html { redirect_to @friend, notice: 'Friend was successfully created.' }
-        format.json { render :show, status: :created, location: @friend }
-      else
-        format.html { render :new }
-        format.json { render json: @friend.errors, status: :unprocessable_entity }
-      end
+      redirect_to @friend
+    else
+      flash[:notice] = "please login before add friends"
+      redirect_to new_user_session_url
     end
+
+
+
   end
 
   # PATCH/PUT /friends/1
