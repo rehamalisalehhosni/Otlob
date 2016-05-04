@@ -28,7 +28,11 @@ class OrderDetailsController < ApplicationController
     @order_detail = OrderDetail.new(order_detail_params)
     @order = Order.find(@order_detail[:order_id])
     @order_detail = @order.order_details.create(order_detail_params)
+    #@update_friend=InvitedFriend.find_by_sql (["update invited_friends set status = '1' where order_id=? and user_id=?", @order_detail[:order_id], current_user.id ])
+    @update_friend=InvitedFriend.where(:order_id =>  @order_detail[:order_id] , :user_id => current_user.id ).update_all(:status => '1')
+
     redirect_to order_path(@order_detail[:order_id])
+
   end
 
   # PATCH/PUT /order_details/1
@@ -53,7 +57,15 @@ class OrderDetailsController < ApplicationController
     @order_detail = OrderDetail.find(params[:id])
     @myid=@order_detail.order_id
     @order_detail.destroy
+    # hyshof aza kan al user 3aml order_details tanya wla la
+    @check_myOrders = OrderDetail.where("order_id = ?  and user_id = ? " , @order_detail[:order_id] , current_user.id )
+    #aza kan mafesh hy3ml update  ll status bta3to
+    if @check_myOrders.length == 0 
+        @update_friend=InvitedFriend.where(:order_id =>  @order_detail[:order_id] , :user_id => current_user.id ).update_all(:status => '0')   
+    end
     redirect_to order_path(@myid)
+
+
     
       
   

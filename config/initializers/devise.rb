@@ -1,9 +1,6 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 Devise.setup do |config|
-
-    config.omniauth :facebook, "800225666771801", "82557f1126a1ff75309bf301696b11d4"
-    config.omniauth :google_oauth2, "292548061885-usfmboop8ioneq55j5n1j89sfs4ac3fu.apps.googleusercontent.com", "G51sElgzfgyl-RRY4UVeJGwm", { }
-
+  config.omniauth :facebook, "123105411427139", "da50f1bb8c30e1d40b641e583d605038"
 
     # config.omniauth :twitter, "KEY", "SECRET"
  # config.omniauth :linked_in, "KEY", "SECRET"

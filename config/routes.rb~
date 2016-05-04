@@ -1,46 +1,27 @@
 Rails.application.routes.draw do
-  #resources :members
-  #resources :groups
-  get 'users/autocomplete_user_email'
+  resources :order_details
   get 'pages/index'
+
   get 'users/index'
   root to: 'pages#index'
-<<<<<<< HEAD
-  resources :friends
-=======
-  resources :order_details
   resources :invited_friends
   resources :orders
+  resources :group_members
+  resources :groups
   resources :friends
+  resources :invited_fiends
   resources :orders
->>>>>>> 480ae10c5116798bc621388a9741ec393e545d3c
-  resources :groups do
-   resources :members
-  end
-
-
-
-get 'get_user_by_email'=>'orders#get_user_by_email'
-
+  resources :groupmembers
+  resources :groups
+  resources :friends
   #devise_for :users
   get 'groups/group_member/:id', to: 'groups#group_member'
-   get 'get_user_data'=>'groups#get_user_data'
-
   get 'users/invite' ,to:"users#invite"
   devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
 
   match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
 
- get 'check_invited_friends'=>'invited_friends#check_invited_friends'
- get 'join_order'=>'invited_friends#join_order'
- get 'cancel_order'=>'invited_friends#cancel_order'
  get 'friendapproved'=>'orders#friendapproved'
- get 'friendunapproved'=>'orders#friendunapproved'
-
-<<<<<<< HEAD
-=======
-
-
   resources :orders do
   resources :invited_friends
   end
@@ -50,23 +31,13 @@ get 'get_user_by_email'=>'orders#get_user_by_email'
 
 
   ###########################
-  # resources :friends do
-  #   member do
-  #     get :follow
-  #     get :unfollow
-  #   end
-  # end
- get 'friendunapproved'=>'orders#friendunapproved'
+  resources :friends do
+    member do
+      get :follow
+      get :unfollow
+    end
+  end
 
->>>>>>> 480ae10c5116798bc621388a9741ec393e545d3c
- match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
- match 'auth/failure', to: redirect('/'), via: [:get, :post]
- match 'signout', to: 'sessions#destroy', as: 'signout', via: [:get, :post]
-
-
-resources :orders do
-resources :invited_friends
-end
 
 
   # devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }

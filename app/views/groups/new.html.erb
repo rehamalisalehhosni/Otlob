@@ -17,7 +17,8 @@
               	</a>
               </span>
                <span class="pull-right  icons"></a>
-              	<a href=''><%= icon('trash', class: 'strong')%></a>
+              	<a href=''><%= link_to icon('trash', class: 'strong'), data , method: :delete, data: { confirm: 'Are you sure?' } %></a>
+
               </span>
             <p class="clearfix"></p>
          </li>

@@ -12,13 +12,12 @@ class User < ActiveRecord::Base
   has_many :friends;
 
   has_many :groups;
-  has_many :members;
+  has_many :group_members;
   has_many :orders;
   has_many :invited_friends;
   has_many :order_details;
   acts_as_followable
-  acts_as_follower
-
+  acts_as_followable
 
 
       TEMP_EMAIL_PREFIX = 'change@me'

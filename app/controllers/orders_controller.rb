@@ -25,6 +25,7 @@ class OrdersController < ApplicationController
   def new
     @order = Order.new
     @invited_friend = InvitedFriend.new
+<<<<<<< HEAD
   #  @userData=User.all
     @user=User.select('email')
     @data = Array.new
@@ -32,6 +33,14 @@ class OrdersController < ApplicationController
       @n={label: data.id  ,value: data.email  }
       @data.push(@n)
      end
+=======
+    @f=params[:x]
+    @oid=3
+    # @fid=User.find_by_sql (["select id from users where email =?", @email])
+    @fid=1
+    @invited_friend=InvitedFriend.find_by_sql (["INSERT INTO invited_friends ( status, user_id, order_id) VALUES ('waiting' ,? ,? )", @fid,@oid])
+
+>>>>>>> 480ae10c5116798bc621388a9741ec393e545d3c
     #@invited_friend=Invited_friends.new
   end
 
