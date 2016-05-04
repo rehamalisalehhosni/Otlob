@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'omniauth-digitalocean'
+
 
 gem 'carrierwave'
 gem 'mini_magick'
@@ -22,9 +24,10 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+gem 'therubyracer', platforms: :ruby
 gem 'font-awesome-sass', '~> 4.5.0'
 
+gem "omniauth-google-oauth2"
 
 
 gem 'bootstrap-sass', '~> 3.3.6'

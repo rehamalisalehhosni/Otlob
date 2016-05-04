@@ -2,6 +2,24 @@
 Devise.setup do |config|
   config.omniauth :facebook, "123105411427139", "da50f1bb8c30e1d40b641e583d605038"
 
+
+  config.mailer_sender = 'localhost:3000'
+
+  require 'devise/orm/active_record'
+  config.case_insensitive_keys = [ :email ]
+  config.strip_whitespace_keys = [ :email ]
+  config.skip_session_storage = [:http_auth]
+  config.stretches = Rails.env.test? ? 1 : 10
+  config.reconfirmable = true
+  config.expire_all_remember_me_on_sign_out = true
+  config.password_length = 8..128
+  config.reset_password_within = 6.hours
+  config.sign_out_via = :delete
+
+  #Add your ID and secret here
+  #ID first, secret second
+  config.omniauth :digitalocean, "292548061885-usfmboop8ioneq55j5n1j89sfs4ac3fu.apps.googleusercontent.com", "G51sElgzfgyl-RRY4UVeJGwm"
+
     # config.omniauth :twitter, "KEY", "SECRET"
  # config.omniauth :linked_in, "KEY", "SECRET"
   # The secret key used by Devise. Devise uses this key to generate

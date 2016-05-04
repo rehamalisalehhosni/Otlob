@@ -1,13 +1,10 @@
 class UsersController ::OmniauthCallbacksController < Devise::OmniauthCallbacksController< ApplicationController
-<<<<<<< HEAD
 #  autocomplete :user, :name ,:full => true :column_name => 'name'
-=======
   #autocomplete :id, :email ,:full => true ,:column_name => 'email'
   autocomplete :user, :email do |items|
      CustomJSON::Encoder.encode(items)
   end
 
->>>>>>> ba3f3df6c1d2297182bace8e515fa9d1b8fb7714
   before_action :set_user, only: [:index,:show, :edit, :update, :destroy]
 
   def index

@@ -33,14 +33,14 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable
   devise :database_authenticatable, :registerable, 
-    :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+    :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable, :omniauth_providers => [:digitalocean]
 
-  validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
+         validates_format_of :email, :without => TEMP_EMAIL_REGEX, on: :update
 
   devise :omniauthable, :omniauth_providers => [:google_oauth2]
 
-
-  def self.find_for_oauth(auth, signed_in_resource = nil)
+      def self.find_for_oauth(auth, signed_in_resource = nil)
 
     # Get the identity and user if they exist
     identity = Identity.find_for_oauth(auth)
@@ -106,5 +106,12 @@ class User < ActiveRecord::Base
     end
   end
 
-
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.provider = auth.provider
+      user.uid = auth.uid
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0,20]
+    end
+  end
 end

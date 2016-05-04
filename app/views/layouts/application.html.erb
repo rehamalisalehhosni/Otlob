@@ -86,7 +86,10 @@
                           <li>
                           <%= link_to('Home', pages_index_path)  %>
                        <% if user_signed_in? %>
-                          <li><a href="#">Friend</a></li>
+                          <li><a href="/friends">Friend</a></li>
+                          <li>
+
+                          <li><a href="/friends/new">New Friend</a></li>
                           <li>
                              <a  href="/groups">Groups</a>
                           </li>

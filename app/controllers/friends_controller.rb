@@ -48,18 +48,18 @@ class FriendsController < ApplicationController
     @friend = Friend.new()
     @friend= Friend.create(params.require(:friend).permit(:friend_id))
     @fid = params[:friend][:friend_id]
-    user = User.find_by(email: @fid).id
-    if user_signed_in?
+    @data= User.find_by(email: @fid)
+
+    if @data != nil 
+      user = @data.id
+
       @friend.user_id=current_user.id
       @friend.friend_id= user
       @friend.save()
-      @friend = Friend.new()
-
-      redirect_to @friend
-    else
-      flash[:notice] = "please login before add friends"
-      redirect_to new_user_session_url
     end
+    @friend = Friend.new()
+
+    redirect_to @friend
 
 
 
