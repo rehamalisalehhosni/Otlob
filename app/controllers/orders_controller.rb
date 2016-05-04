@@ -11,13 +11,25 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
+    
+    @check_friends = InvitedFriend.where("order_id = ?  and user_id = ? " , params[:id] , current_user.id )
     @order = Order.find(params[:id])
+    
+    if @check_friends.length == 0 &&  @order.user_id != current_user.id
+        redirect_to '/orders', notice: 'Sorry This Page Cannot Be Opened'   
+    end
+
   end
 
   # GET /orders/new
   def new
     @order = Order.new
     @invited_friend = InvitedFriend.new
+    @f=params[:x]
+    @oid=3
+    # @fid=User.find_by_sql (["select id from users where email =?", @email])
+    @fid=1
+    @invited_friend=InvitedFriend.find_by_sql (["INSERT INTO invited_friends ( status, user_id, order_id) VALUES ('waiting' ,? ,? )", @fid,@oid])
 
     #@invited_friend=Invited_friends.new
   end
@@ -66,15 +78,56 @@ class OrdersController < ApplicationController
     end
   end
 
-  def friendapproved
+    def friendapproved
 
 
 
       # hab3at  input type hidden  3ashan ya5od mnoh al kema bta3t al Order ID
       # w ha5odha fe al ajax   w ab3atha  l hna
 
-      #@order = Order.find(params[:id])
-      @invitedFriend = InvitedFriend.where("status = 1 AND order_id = 3 " )
+      # SELECT name FROM invited_friends , users WHERE invited_friends.user_id = users.id
+
+      @order = Order.find(params[:id])
+
+      #@invitedFriend = InvitedFriend.where("status = 1 AND order_id = ? " , @order.id )
+
+      @invitedFriend = InvitedFriend.find_by_sql(["SELECT invited_friends.id , invited_friends.user_id ,  users.image ,invited_friends.status, invited_friends.order_id , users.name
+                      FROM invited_friends , users
+                      WHERE invited_friends.user_id = users.id
+                      AND invited_friends.status = 1
+                      AND invited_friends.order_id = ?
+                      group by users.email
+                      " , @order.id])
+      respond_to do |format|
+           format.html
+           format.js {}
+           format.json {
+              render json: {:invitedFriend => @invitedFriend}
+           }
+      end
+  end
+
+
+  def friendunapproved
+
+
+
+      # hab3at  input type hidden  3ashan ya5od mnoh al kema bta3t al Order ID
+      # w ha5odha fe al ajax   w ab3atha  l hna
+
+      # SELECT name FROM invited_friends , users WHERE invited_friends.user_id = users.id
+
+      @order = Order.find(params[:id])
+
+      #@invitedFriend = InvitedFriend.where("status = 1 AND order_id = ? " , @order.id )
+
+      @invitedFriend = InvitedFriend.find_by_sql(["SELECT invited_friends.id , invited_friends.user_id ,  users.image ,invited_friends.status, invited_friends.order_id , users.name
+                      FROM invited_friends , users
+                      WHERE invited_friends.user_id = users.id
+                      AND invited_friends.status = 0
+                      AND invited_friends.order_id = ?
+                      group by users.email
+                      " , @order.id])
       respond_to do |format|
            format.html
            format.js {}

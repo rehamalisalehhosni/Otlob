@@ -11,6 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20160503083731) do
 
   create_table "follows", force: :cascade do |t|
@@ -25,6 +26,9 @@ ActiveRecord::Schema.define(version: 20160503083731) do
 
   add_index "follows", ["followable_id", "followable_type"], name: "fk_followables", using: :btree
   add_index "follows", ["follower_id", "follower_type"], name: "fk_follows", using: :btree
+=======
+ActiveRecord::Schema.define(version: 20160502144951) do
+>>>>>>> ba3f3df6c1d2297182bace8e515fa9d1b8fb7714
 
   create_table "friends", force: :cascade do |t|
     t.integer  "friend_id",  limit: 4
@@ -74,6 +78,16 @@ ActiveRecord::Schema.define(version: 20160503083731) do
 
   add_index "invited_friends", ["order_id"], name: "index_invited_friends_on_order_id", using: :btree
   add_index "invited_friends", ["user_id"], name: "index_invited_friends_on_user_id", using: :btree
+
+  create_table "members", force: :cascade do |t|
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "user_id",    limit: 4
+    t.integer  "group_id",   limit: 4
+  end
+
+  add_index "members", ["group_id"], name: "index_members_on_group_id", using: :btree
+  add_index "members", ["user_id"], name: "index_members_on_user_id", using: :btree
 
   create_table "order_details", force: :cascade do |t|
     t.string   "item",       limit: 255
@@ -128,6 +142,8 @@ ActiveRecord::Schema.define(version: 20160503083731) do
   add_foreign_key "identities", "users"
   add_foreign_key "invited_friends", "orders"
   add_foreign_key "invited_friends", "users"
+  add_foreign_key "members", "groups"
+  add_foreign_key "members", "users"
   add_foreign_key "order_details", "orders"
   add_foreign_key "order_details", "users"
   add_foreign_key "orders", "users"

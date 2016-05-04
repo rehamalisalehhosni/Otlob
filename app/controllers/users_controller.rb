@@ -1,9 +1,16 @@
 class UsersController ::OmniauthCallbacksController < Devise::OmniauthCallbacksController< ApplicationController
+<<<<<<< HEAD
 #  autocomplete :user, :name ,:full => true :column_name => 'name'
+=======
+  #autocomplete :id, :email ,:full => true ,:column_name => 'email'
+  autocomplete :user, :email do |items|
+     CustomJSON::Encoder.encode(items)
+  end
+
+>>>>>>> ba3f3df6c1d2297182bace8e515fa9d1b8fb7714
   before_action :set_user, only: [:index,:show, :edit, :update, :destroy]
 
   def index
-
     if current_user
       @uid = current_user.id
     else
@@ -114,6 +121,16 @@ class UsersController ::OmniauthCallbacksController < Devise::OmniauthCallbacksC
     #     )
     # end
     user
+  end
+  def self.from_omniauth(auth)
+    where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
+      user.provider = auth.provider
+      user.uid = auth.uid
+      user.name = auth.info.name
+      user.oauth_token = auth.credentials.token
+      user.oauth_expires_at = Time.at(auth.credentials.expires_at)
+      user.save!
+    end
   end
 
 end

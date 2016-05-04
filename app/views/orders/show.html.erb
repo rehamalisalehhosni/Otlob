@@ -1,3 +1,4 @@
+<h4><%= link_to 'Back', orders_path %></h4>
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -17,8 +18,16 @@
 
 <p>
   <strong>Status:</strong>
-  <%= @order.status %>
+  <%= if @order.status == '0'
+  		'not finshed'
+  	  else
+  	  	'Finished'
+  	  end	
+  		 %>
 </p>
+
+
+
 
 <div class="row">
 	<!-- Show Order Details  -->
@@ -51,7 +60,9 @@
 	<div class="col-sm-4">
 		<!-- Button trigger modal -->
 			<h1>
+				<input type="hidden" value="<%= @order.id %>" id="myOrderId"  >
 				<a class="" data-toggle="modal" data-target="#myModal" onclick="myFunc()" > View Invited Ppls </a>
+				<br><a class="" data-toggle="modal" data-target="#myModal" onclick="unAccept()" > View Un Accepted Ppls </a>
 			</h1>
 
 			<!-- Modal -->
@@ -60,26 +71,13 @@
 			    <div class="modal-content">
 			      <div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			        <h4 class="modal-title" id="myModalLabel">Invited Friends</h4>
+			        <h4 class="modal-title" id="myStatusTitle" align="center"> </h4>
 			      </div>
 			      <div class="modal-body">
-				      <div class="row">
-				      		<div class="col-sm-6">
-				      			<img class="img-responsive img-thumbnail" src="/uploads/user/image/1/medium_WPKIAR_1__2_.JPG">
-				      			<h3>Mina Amir</h3>
-				      		</div>
-				      		<div class="col-sm-6">
-				      			<img class="img-responsive img-thumbnail" src="/uploads/user/image/1/medium_WPKIAR_1__2_.JPG">
-				      			<h3>Mina Amir</h3>
-				      		</div>
-				      		<div class="col-sm-6">
-				      			<img class="img-responsive img-thumbnail" src="/uploads/user/image/1/medium_WPKIAR_1__2_.JPG">
-				      			<h3>Mina Amir</h3>
-				      		</div>
-				      		<div class="col-sm-6">
-				      			<img class="img-responsive img-thumbnail" src="/uploads/user/image/1/medium_WPKIAR_1__2_.JPG">
-				      			<h3>Mina Amir</h3>
-				      		</div>
+				      <div class="row" id="viewResult">
+
+				      		
+				      		
 				      </div>
 
 			      </div>
@@ -92,53 +90,15 @@
 			</div>
 
 
-
-			<!-- Joined Frinds -->
-			<h2>
-				<a class="" data-toggle="modal" data-target="#myModal1" > View Accepted Ppls </a>
-			</h2>
-
-			<!-- Modal -->
-			<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-			  <div class="modal-dialog" role="document">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			        <h4 class="modal-title" id="myModalLabel">Accepted Friends</h4>
-			      </div>
-			      <div class="modal-body">
-				      <div class="row">
-				      		<div class="col-sm-6">
-				      			<img class="img-responsive img-thumbnail" src="/uploads/user/image/1/medium_WPKIAR_1__2_.JPG">
-				      			<h3>Mina Amir</h3>
-				      		</div>
-				      		<div class="col-sm-6">
-				      			<img class="img-responsive img-thumbnail" src="/uploads/user/image/1/medium_WPKIAR_1__2_.JPG">
-				      			<h3>Mina Amir</h3>
-				      		</div>
-				      		<div class="col-sm-6">
-				      			<img class="img-responsive img-thumbnail" src="/uploads/user/image/1/medium_WPKIAR_1__2_.JPG">
-				      			<h3>Mina Amir</h3>
-				      		</div>
-				      		<div class="col-sm-6">
-				      			<img class="img-responsive img-thumbnail" src="/uploads/user/image/1/medium_WPKIAR_1__2_.JPG">
-				      			<h3>Mina Amir</h3>
-				      		</div>
-				      </div>
-
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			        
-			      </div>
-			    </div>
-			  </div>
-			</div>
 	</div>
 </div>
 
 <hr>
-<%= render 'order_details/form'  %>
+<%=	
+	if  @order.status == '0' 
+	 	render 'order_details/form'  
+	end 	
+%>
 <div class="row">
 		<!--<form class="form-inline" action="/order_details" method="POST">
 		  <div class="form-group">
@@ -175,5 +135,5 @@
 
 
 
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>
+
+

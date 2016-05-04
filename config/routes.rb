@@ -1,27 +1,34 @@
 Rails.application.routes.draw do
+  #resources :members
+  #resources :groups
+  get 'users/autocomplete_user_email'
   resources :order_details
   get 'pages/index'
-
   get 'users/index'
   root to: 'pages#index'
   resources :invited_friends
   resources :orders
-  resources :group_members
-  resources :groups
   resources :friends
   resources :invited_fiends
   resources :orders
-  resources :groupmembers
-  resources :groups
+  resources :groups do
+   resources :members
+  end
   resources :friends
+
+
+
   #devise_for :users
   get 'groups/group_member/:id', to: 'groups#group_member'
+   get 'get_user_data'=>'groups#get_user_data'
+
   get 'users/invite' ,to:"users#invite"
   devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
 
   match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
 
  get 'friendapproved'=>'orders#friendapproved'
+<<<<<<< HEAD
   resources :orders do
   resources :invited_friends
   end
@@ -38,6 +45,18 @@ Rails.application.routes.draw do
   #   end
   # end
 
+=======
+ get 'friendunapproved'=>'orders#friendunapproved'
+ 
+ match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
+ match 'auth/failure', to: redirect('/'), via: [:get, :post]
+ match 'signout', to: 'sessions#destroy', as: 'signout', via: [:get, :post]
+
+
+resources :orders do
+resources :invited_friends
+end
+>>>>>>> ba3f3df6c1d2297182bace8e515fa9d1b8fb7714
 
 
   # devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }

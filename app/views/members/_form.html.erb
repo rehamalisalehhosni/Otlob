@@ -1,0 +1,20 @@
+<%= form_for([ @groups, @member ]) do |f| %>
+  <% if @member.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@member.errors.count, "error") %> prohibited this member from being saved:</h2>
+
+      <ul>
+      <% @member.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.label :addFriend %>:
+  <%= text_field_tag :data   %><br />
+  <%= f.hidden_field :group_id, { value: 1 } %>
+  <%= f.hidden_field :user_id, { value: 1 } %>
+  <div class="actions">
+    <%= f.submit class: 'btn btn-danger new'%>
+  </div>
+<% end %>

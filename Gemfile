@@ -2,13 +2,13 @@ source 'https://rubygems.org'
 
 gem 'devise'
 gem 'omniauth'
-gem 'omniauth-twitter'
-gem 'omniauth-facebook'
-gem 'omniauth-linkedin'
+# gem 'omniauth-facebook'
+
+gem 'omniauth-facebook', '1.4.0'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'fog'
-gem 'rails3-jquery-autocomplete'
+gem 'rails4-autocomplete'
 gem 'jquery-ui-rails'
 
 
