@@ -128,5 +128,6 @@ class UsersController ::OmniauthCallbacksController < Devise::OmniauthCallbacksC
       user.save!
     end
   end
+  
 
 end

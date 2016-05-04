@@ -5,5 +5,8 @@ class CreateInvitedFriends < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+    change_column :invited_friends, :created_at, :DATETIME, :default => CURRENT_TIMESTAMP, :null => true
+    change_column :invited_friends, :updated_at, :DATETIME, :default => CURRENT_TIMESTAMP, :null => true
+
   end
 end

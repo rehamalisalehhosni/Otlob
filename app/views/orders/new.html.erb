@@ -7,15 +7,67 @@
         <th><h3>Friends Invited</h3></th>
       </tr>
       <tr>
-        <td>January</td>
+        <td>
+              <div id="users">
+          </div>
+        </td>
       </tr>
     </table>
   </div>
 </div>
 
 
-<!-- <%= render :partial => 'invited_friends/form'  %> -->
-<!-- <%= render :partial => 'users/invite'  %> -->
-
 
 <%= link_to 'Back', orders_path %>
+<script type="text/javascript">
+
+//var temp =data.split(',');
+// for (var item in obj) {
+//     sum += obj[ item ];
+// }
+  $(function() {
+
+    $("#order_invited").blur(function(){
+      var temp = new Array();
+      var a=$("#order_invited").val();
+ temp =a.split(',');
+for (var item in temp) {
+
+      $.ajax({
+          type: "GET",
+          data:'email='+temp[item],
+          url: '/get_user_by_email' ,
+          dataType: "JSON",
+          success: function(data) {
+            console.log(data.u);
+             $('#users').append("<img class='img-responsive img-thumbnail' src='"+data.u[0].image.url+"' ><br> "+data.u[0].name+"<br><br>"+data.u[0].email+"<br>");
+           }
+      });
+    }
+    });
+
+
+    var availableTags =[];
+    availableTags = <%=raw @data.to_json  %>;
+    $( "#order_invited" ).autocomplete({
+      source: availableTags,
+      select: function( event, ui ) {
+        event.preventDefault();
+        $.ajax({
+            type: "GET",
+            data:'email='+ui.item.value,
+            url: '/get_user_data' ,
+            dataType: "JSON",
+             multiple: true,
+            success: function(data) {
+             $("#member_user_id").val(data.id[0].id); // save selected id to hidden
+             }
+        });
+      }
+   });
+  });
+
+
+
+
+</script>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160502144951) do
+ActiveRecord::Schema.define(version: 20160504105707) do
 
   create_table "friends", force: :cascade do |t|
     t.integer  "friend_id",  limit: 4
@@ -53,8 +53,8 @@ ActiveRecord::Schema.define(version: 20160502144951) do
 
   create_table "invited_friends", force: :cascade do |t|
     t.string   "status",     limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "user_id",    limit: 4
     t.integer  "order_id",   limit: 4
   end
@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(version: 20160502144951) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.integer  "user_id",    limit: 4
+    t.string   "invited",    limit: 255
   end
 
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
@@ -113,6 +114,8 @@ ActiveRecord::Schema.define(version: 20160502144951) do
     t.datetime "updated_at",                                      null: false
     t.string   "name",                   limit: 255
     t.string   "image",                  limit: 255
+    t.string   "provider",               limit: 255
+    t.string   "uid",                    limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

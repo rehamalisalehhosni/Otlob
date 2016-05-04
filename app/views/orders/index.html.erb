@@ -18,7 +18,7 @@
       <tr>
         <td><%= order.order %></td>
         <td><%= order.resturant %></td>
-        <td><%= order.image %></td>
+        <td>  <%= image_tag order.image.thumb.url %></td>
         <td><%= order.status %></td>
         <td><%= link_to 'Show', order %></td>
         <td><%= link_to 'Edit', edit_order_path(order) %></td>

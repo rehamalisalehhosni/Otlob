@@ -33,6 +33,11 @@
         <%= f.hidden_field :user_id, value: current_user.id %>
   </p>
 
+  <div class="field">
+    <%= f.label :Invited_Friends %><br>
+      <%= f.text_field :invited %>
+  </div>
+
 
   <div class="field">
 
@@ -42,7 +47,7 @@
   <div class="field form-group">
     <%= f.label :image do %>
       <%= f.file_field :image ,class: 'form-control' %>
-      <%= f.hidden_field :image  %>
+      <%= f.hidden_field :image_cache  %>
     <% end %>
   </div>
 

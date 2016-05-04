@@ -6,17 +6,14 @@ Rails.application.routes.draw do
   get 'pages/index'
   get 'users/index'
   root to: 'pages#index'
-  resources :invited_friends
-  resources :orders
   resources :friends
-  resources :invited_fiends
-  resources :orders
   resources :groups do
    resources :members
   end
-  resources :friends
 
 
+
+get 'get_user_by_email'=>'orders#get_user_by_email'
 
   #devise_for :users
   get 'groups/group_member/:id', to: 'groups#group_member'
@@ -29,7 +26,7 @@ Rails.application.routes.draw do
 
  get 'friendapproved'=>'orders#friendapproved'
  get 'friendunapproved'=>'orders#friendunapproved'
- 
+
  match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
  match 'auth/failure', to: redirect('/'), via: [:get, :post]
  match 'signout', to: 'sessions#destroy', as: 'signout', via: [:get, :post]

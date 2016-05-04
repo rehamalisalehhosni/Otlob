@@ -5,7 +5,7 @@
 <% #link_to 'Back', groups_path %>
 <p class="clearfix"></p>
 <div class="col-md-5 pull-left border">
-	<h3>My Groups</h3> 
+	<h3>My Groups</h3>
 	<ul class="gr">
 	    <% @groupsData.each do |data| %>
          <li>
@@ -31,7 +31,7 @@
 
 
   <ul id="users"></ul>
-  </div>	
+  </div>
 </div>
 <script type="text/javascript">
   function displayGroup(id){
@@ -47,7 +47,7 @@
         for (var x=0;x< data.usrGroups.length;x++){
              console.log(data.usrGroups[x].image.url);
 	      	$('#users').append("<li><img src='"+data.usrGroups[x].image.url+"' class='img'/>"+data.usrGroups[x].name+"</li>");
-	      } 	
+	      }
 	     }
   });
 
@@ -65,7 +65,7 @@
             url: '/get_user_data' ,
             dataType: "JSON",
             success: function(data) {
-             $("#member_user_id").val(data.id[0].id); // save selected id to hidden 
+             $("#member_user_id").val(data.id[0].id); // save selected id to hidden
              }
         });
       }
