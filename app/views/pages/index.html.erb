@@ -8,7 +8,7 @@
     <!--latest orders-->
 
     <div class="col-sm-6">
-      <h1>Latest Orders</h1>
+      <h3>Latest Orders</h3>
       <table class="table" >
         <thead>
         </thead>
@@ -31,32 +31,19 @@
     <!--friends activity-->
 
     <div class="col-sm-6">
-    <h1>Latest Orders</h1>
+    <h3>Friends Activities</h3>
       <table class="table" >
       <thead>
       </thead>
         <tbody>
 
 
-        <% @friend.each do |friend| %>
-
-          <tr class="success" >
-
-
-           <div class="col-sm-6 col-md-6 col-xs-6"> <%= link_to(image_tag(friend.image.url) ) %> <br> <%= friend.name %><br><%= link_to 'unfriend', method: :delete, data: { confirm: 'Are you sure?' } %>
-
-             </div>
-
-
-
-                </tr>
-      <% end %>
-      <% @friend_orders.each do |friend_orders| %>
+         <% @friend_orders.each do |friend_orders| %>
             <tr class="" >
-              <td>
-                <%= friend_orders.name %>
-                <br>
-                <%= friend_orders.order %>
+              <td class="danger">
+                <h4><%= friend_orders.name %></h4> <%= "has created an order for"%> <%= friend_orders.order %> <%= "from" %> <%= friend_orders.resturant %>
+
+
               </td>
             </tr>
         <% end %>
@@ -70,4 +57,4 @@
     <br>
   </div>
 </div>
-	
+  

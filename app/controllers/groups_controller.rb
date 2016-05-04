@@ -68,7 +68,6 @@ class GroupsController < ApplicationController
       @data.push(@n)
      end  
   end
-
   def get_user_data
        @email= params[:email]
        @id=User.select('id').where('email=?', @email)

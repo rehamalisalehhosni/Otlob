@@ -2,14 +2,13 @@ Rails.application.routes.draw do
   #resources :members
   #resources :groups
   get 'users/autocomplete_user_email'
-  resources :order_details
   get 'pages/index'
   get 'users/index'
   root to: 'pages#index'
+  resources :order_details
   resources :invited_friends
   resources :orders
   resources :friends
-  resources :invited_fiends
   resources :orders
   resources :groups do
    resources :members
@@ -28,7 +27,6 @@ Rails.application.routes.draw do
   match '/users/:id/finish_signup' => 'users#finish_signup', via: [:get, :patch], :as => :finish_signup
 
  get 'friendapproved'=>'orders#friendapproved'
-<<<<<<< HEAD
   resources :orders do
   resources :invited_friends
   end
@@ -45,7 +43,6 @@ Rails.application.routes.draw do
   #   end
   # end
 
-=======
  get 'friendunapproved'=>'orders#friendunapproved'
  
  match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
@@ -56,7 +53,6 @@ Rails.application.routes.draw do
 resources :orders do
 resources :invited_friends
 end
->>>>>>> ba3f3df6c1d2297182bace8e515fa9d1b8fb7714
 
 
   # devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
