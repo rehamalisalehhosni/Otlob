@@ -57,8 +57,7 @@ class GroupsController < ApplicationController
   # GET /groups/new
   def new
     @group = Group.new
-    @groups= Group.find(1)
-    @member =@groups.members.new
+
     @groupsData = Group.all
     #@user = User.all
     @user=User.select('email')

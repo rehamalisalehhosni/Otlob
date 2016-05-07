@@ -28,8 +28,14 @@
 <div class="col-md-5 pull-right border">
   <div id="results">
   	<h2></h2>
-    <%= render 'members/form' %>
+    <%
+      @groups= Group.where(user_id: current_user.id).first
+      if @groups
+      @member =@groups.members.new
 
+    %>
+    <%= render 'members/form' %>
+   <% end %>
 
   <ul id="users"></ul>
   </div>
