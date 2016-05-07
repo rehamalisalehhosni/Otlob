@@ -45,23 +45,24 @@ class FriendsController < ApplicationController
   # POST /friends
   # POST /friends.json
   def create
-    @friend = Friend.new()
-    @friend= Friend.create(params.require(:friend).permit(:friend_id))
     @fid = params[:friend][:friend_id]
+    #@data== User.select(:id).find_by(email: @fid)
+    #@friend= Friend.create(params.require(:friend).permit(:friend_id))
     @data= User.find_by(email: @fid)
-
-    if @data != nil 
+     if @data  
       user = @data.id
-
-      @friend.user_id=current_user.id
-      @friend.friend_id= user
-      @friend.save()
+      params[:friend][:user_id]=current_user.id
+      params[:friend][:friend_id]=user
+      #@friend.user_id=current_user.id
+      @datafriend= Friend.find_by(friend_id: user, user_id: current_user.id )
+      if !@datafriend 
+        @friend = Friend.new(friend_params)
+        #@friend.friend_id= user
+        @friend.save()
+      end
     end
     @friend = Friend.new()
-
     redirect_to @friend
-
-
 
   end
 
@@ -101,6 +102,6 @@ class FriendsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def friend_params
-      params.require(:friend).permit(:friend_id)
+      params.require(:friend).permit(:friend_id, :user_id)
     end
 end
